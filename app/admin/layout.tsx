@@ -10,7 +10,6 @@ export const metadata: Metadata = {
   description: "Admin Toko Online",
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{
