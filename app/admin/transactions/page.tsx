@@ -1,200 +1,276 @@
-// app/admin/transactions/add/page.tsx
+// app/admin/transactions/page.tsx
 "use client";
 
-import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-interface Product {
+type Transaction = {
   id: string;
-  name: string;
-  price: number;
-  stock: number;
-}
+  orderId: string;
+  customerName: string;
+  date: string;
+  amount: number;
+  status: 'pending' | 'completed' | 'cancelled';
+};
 
-export default function AddTransactionPage() {
-  const router = useRouter();
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  
-  const [formData, setFormData] = useState({
-    customerName: "",
-    productId: "",
-    quantity: "1",
-    status: "pending",
-  });
-  
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+export default function TransactionsPage() {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentTransaction, setCurrentTransaction] = useState<Transaction | null>(null);
 
+  // Fetch data
   useEffect(() => {
-    // Simulate fetching products
-    setTimeout(() => {
-      setProducts([
-        { id: "P001", name: "Laptop Asus TUF Gaming", price: 12000000, stock: 5 },
-        { id: "P002", name: "Samsung Galaxy S21", price: 9000000, stock: 10 },
-        { id: "P003", name: "Logitech MX Master 3", price: 1200000, stock: 15 },
-      ]);
-      setLoading(false);
-    }, 500);
+    const fetchData = async () => {
+      // Simulasi fetch data dari API
+      setTimeout(() => {
+        setTransactions([
+          {
+            id: '1',
+            orderId: 'ORD-001',
+            customerName: 'John Doe',
+            date: '2023-05-15',
+            amount: 12000000,
+            status: 'completed'
+          },
+          {
+            id: '2',
+            orderId: 'ORD-002',
+            customerName: 'Jane Smith',
+            date: '2023-05-16',
+            amount: 9000000,
+            status: 'pending'
+          },
+          {
+            id: '3',
+            orderId: 'ORD-003',
+            customerName: 'Robert Johnson',
+            date: '2023-05-17',
+            amount: 1200000,
+            status: 'completed'
+          }
+        ]);
+        setIsLoading(false);
+      }, 1000);
+    };
+
+    fetchData();
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    
-    if (name === "productId") {
-      const product = products.find(p => p.id === value) || null;
-      setSelectedProduct(product);
-    }
-  };
-
-  const calculateTotal = () => {
-    if (!selectedProduct) return 0;
-    return selectedProduct.price * parseInt(formData.quantity || "0");
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Handle create/update
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    if (!selectedProduct) {
-      alert("Silakan pilih produk");
-      return;
+    if (!currentTransaction) return;
+
+    if (currentTransaction.id) {
+      // Update existing transaction
+      setTransactions(transactions.map(t => 
+        t.id === currentTransaction.id ? currentTransaction : t
+      ));
+    } else {
+      // Add new transaction
+      const newTransaction = {
+        ...currentTransaction,
+        id: Date.now().toString()
+      };
+      setTransactions([...transactions, newTransaction]);
     }
-    
-    setIsSubmitting(true);
-    
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert("Transaksi berhasil ditambahkan!");
-      router.push("/admin/transactions");
-    }, 1000);
+
+    setIsModalOpen(false);
+    setCurrentTransaction(null);
   };
 
-  if (loading) {
-    return <div className="flex justify-center py-10">Memuat data produk...</div>;
-  }
+  // Handle delete
+  const handleDelete = (id: string) => {
+    if (confirm('Apakah Anda yakin ingin menghapus transaksi ini?')) {
+      setTransactions(transactions.filter(t => t.id !== id));
+    }
+  };
+
+  // Format currency
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0
+    }).format(amount);
+  };
 
   return (
-    <div>
-      <div className="flex items-center mb-6">
-        <Link href="/admin/transactions" className="text-blue-600 hover:underline mr-4">
-          &larr; Kembali
-        </Link>
-        <h1 className="text-2xl font-bold">Tambah Transaksi Baru</h1>
+    <div className="container mx-auto px-4 py-8">
+      <div className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold">Daftar Transaksi</h1>
+        <button
+          onClick={() => {
+            setCurrentTransaction({
+              id: '',
+              orderId: '',
+              customerName: '',
+              date: new Date().toISOString().split('T')[0],
+              amount: 0,
+              status: 'pending'
+            });
+            setIsModalOpen(true);
+          }}
+          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+        >
+          Tambah Transaksi
+        </button>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6">
-        <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="customerName">
-              Nama Pembeli
-            </label>
-            <input
-              type="text"
-              id="customerName"
-              name="customerName"
-              value={formData.customerName}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-          
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="productId">
-              Produk
-            </label>
-            <select
-              id="productId"
-              name="productId"
-              value={formData.productId}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              required
-            >
-              <option value="">Pilih Produk</option>
-              {products.map(product => (
-                <option key={product.id} value={product.id}>
-                  {product.name} - Rp {product.price.toLocaleString('id-ID')} (Stok: {product.stock})
-                </option>
+      {isLoading ? (
+        <p>Memuat data...</p>
+      ) : (
+        <div className="overflow-x-auto">
+          <table className="min-w-full bg-white border border-gray-200">
+            <thead>
+              <tr className="bg-gray-100">
+                <th className="py-2 px-4 border-b">Order ID</th>
+                <th className="py-2 px-4 border-b">Nama Pelanggan</th>
+                <th className="py-2 px-4 border-b">Tanggal</th>
+                <th className="py-2 px-4 border-b">Jumlah</th>
+                <th className="py-2 px-4 border-b">Status</th>
+                <th className="py-2 px-4 border-b">Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {transactions.map((transaction) => (
+                <tr key={transaction.id} className="hover:bg-gray-50">
+                  <td className="py-2 px-4 border-b">{transaction.orderId}</td>
+                  <td className="py-2 px-4 border-b">{transaction.customerName}</td>
+                  <td className="py-2 px-4 border-b">{transaction.date}</td>
+                  <td className="py-2 px-4 border-b">{formatCurrency(transaction.amount)}</td>
+                  <td className="py-2 px-4 border-b">
+                    <span className={`px-2 py-1 rounded-full text-xs ${
+                      transaction.status === 'completed' ? 'bg-green-100 text-green-800' :
+                      transaction.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                      'bg-red-100 text-red-800'
+                    }`}>
+                      {transaction.status === 'completed' ? 'Selesai' :
+                       transaction.status === 'pending' ? 'Pending' : 'Dibatalkan'}
+                    </span>
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    <button
+                      onClick={() => {
+                        setCurrentTransaction(transaction);
+                        setIsModalOpen(true);
+                      }}
+                      className="text-blue-600 hover:text-blue-800 mr-2"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(transaction.id)}
+                      className="text-red-600 hover:text-red-800"
+                    >
+                      Hapus
+                    </button>
+                  </td>
+                </tr>
               ))}
-            </select>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Modal untuk create/update */}
+      {isModalOpen && currentTransaction && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h2 className="text-xl font-bold mb-4">
+              {currentTransaction.id ? 'Edit Transaksi' : 'Tambah Transaksi'}
+            </h2>
+            <form onSubmit={handleSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Order ID</label>
+                <input
+                  type="text"
+                  value={currentTransaction.orderId}
+                  onChange={(e) => setCurrentTransaction({
+                    ...currentTransaction,
+                    orderId: e.target.value
+                  })}
+                  className="w-full px-3 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Nama Pelanggan</label>
+                <input
+                  type="text"
+                  value={currentTransaction.customerName}
+                  onChange={(e) => setCurrentTransaction({
+                    ...currentTransaction,
+                    customerName: e.target.value
+                  })}
+                  className="w-full px-3 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Tanggal</label>
+                <input
+                  type="date"
+                  value={currentTransaction.date}
+                  onChange={(e) => setCurrentTransaction({
+                    ...currentTransaction,
+                    date: e.target.value
+                  })}
+                  className="w-full px-3 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Jumlah</label>
+                <input
+                  type="number"
+                  value={currentTransaction.amount}
+                  onChange={(e) => setCurrentTransaction({
+                    ...currentTransaction,
+                    amount: Number(e.target.value)
+                  })}
+                  className="w-full px-3 py-2 border rounded"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Status</label>
+                <select
+                  value={currentTransaction.status}
+                  onChange={(e) => setCurrentTransaction({
+                    ...currentTransaction,
+                    status: e.target.value as Transaction['status']
+                  })}
+                  className="w-full px-3 py-2 border rounded"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+              <div className="flex justify-end space-x-2">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsModalOpen(false);
+                    setCurrentTransaction(null);
+                  }}
+                  className="px-4 py-2 border rounded"
+                >
+                  Batal
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Simpan
+                </button>
+              </div>
+            </form>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="quantity">
-                Jumlah
-              </label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
-                min="1"
-                max={selectedProduct?.stock || 1}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                required
-              />
-            </div>
-            
-            <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="status">
-                Status
-              </label>
-              <select
-                id="status"
-                name="status"
-                value={formData.status}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-                required
-              >
-                <option value="pending">Menunggu</option>
-                <option value="completed">Selesai</option>
-                <option value="cancelled">Dibatalkan</option>
-              </select>
-            </div>
-          </div>
-          
-          {selectedProduct && (
-            <div className="mb-6 p-4 bg-gray-50 rounded border border-gray-200">
-              <h3 className="font-semibold mb-2">Detail Transaksi</h3>
-              <div className="flex justify-between mb-1">
-                <span>Produk:</span>
-                <span>{selectedProduct.name}</span>
-              </div>
-              <div className="flex justify-between mb-1">
-                <span>Harga Satuan:</span>
-                <span>Rp {selectedProduct.price.toLocaleString('id-ID')}</span>
-              </div>
-              <div className="flex justify-between mb-1">
-                <span>Jumlah:</span>
-                <span>{formData.quantity}</span>
-              </div>
-              <div className="flex justify-between font-bold">
-                <span>Total:</span>
-                <span>Rp {calculateTotal().toLocaleString('id-ID')}</span>
-              </div>
-            </div>
-          )}
-          
-          <div className="flex justify-end">
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${
-                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            >
-              {isSubmitting ? "Menyimpan..." : "Simpan Transaksi"}
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
