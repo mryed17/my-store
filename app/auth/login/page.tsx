@@ -1,80 +1,89 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const loginForm = document.getElementById('loginForm');
-    const errorContainer = document.getElementById('errorContainer');
+// auth/login/page.tsx
+"use client"; // Diperukan karena menggunakan useState dan event handler
+import Link from "next/link";
+import { useState } from "react";
 
-    loginForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Clear previous errors
-        errorContainer.innerHTML = '';
-        
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        // Validation
-        let isValid = true;
-        let errors = [];
-        
-        if (!email) {
-            errors.push('Email is required');
-            isValid = false;
-        } else if (!isValidEmail(email)) {
-            errors.push('Please enter a valid email address');
-            isValid = false;
-        }
-        
-        if (!password) {
-            errors.push('Password is required');
-            isValid = false;
-        } else if (password.length < 6) {
-            errors.push('Password must be at least 6 characters');
-            isValid = false;
-        }
-        
-        if (!isValid) {
-            displayErrors(errors);
-            return;
-        }
-        
-        // Simulate login request
-        simulateLogin(email, password)
-            .then(response => {
-                // Redirect on successful login
-                window.location.href = '/dashboard';
-            })
-            .catch(error => {
-                displayErrors([error.message || 'Login failed. Please try again.']);
-            });
-    });
+export default function LoginPage() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
     
-    function isValidEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
+    // Simulasi error: Email atau password kosong
+    if (!email || !password) {
+      setError("Email dan password harus diisi!");
+      return;
     }
-    
-    function displayErrors(errors) {
-        errors.forEach(error => {
-            const errorElement = document.createElement('div');
-            errorElement.className = 'alert alert-danger';
-            errorElement.textContent = error;
-            errorContainer.appendChild(errorElement);
-        });
+
+    // Simulasi error: Password terlalu pendek
+    if (password.length < 6) {
+      setError("Password harus minimal 6 karakter!");
+      return;
     }
-    
-    function simulateLogin(email, password) {
-        return new Promise((resolve, reject) => {
-            // Simulate API call delay
-            setTimeout(() => {
-                // Mock validation - in real app, this would be a server call
-                const testEmail = 'user@example.com';
-                const testPassword = 'password123';
-                
-                if (email === testEmail && password === testPassword) {
-                    resolve({ success: true });
-                } else {
-                    reject(new Error('Invalid email or password'));
-                }
-            }, 1000);
-        });
-    }
-});
+
+    // Jika validasi berhasil, reset error
+    setError(null);
+    console.log("Login berhasil"); // Ganti dengan logika login sesungguhnya
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
+        
+        {/* Tampilkan error jika ada */}
+        {error && (
+          <div className="mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
+            <p>{error}</p>
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className={`mt-1 block w-full px-3 py-2 border ${error ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
+              required
+            />
+          </div>
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-700">Password</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={`mt-1 block w-full px-3 py-2 border ${error ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
+              required
+            />
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Link href="/auth/forgot-password" className="text-sm text-blue-600 hover:underline">
+              Lupa Password?
+            </Link>
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          >
+            Login
+          </button>
+        </form>
+
+        <div className="mt-4 text-center">
+          <span className="text-sm text-gray-600">Belum punya akun? </span>
+          <Link href="/auth/register" className="text-blue-600 hover:underline">
+            Registrasi
+          </Link>
+        </div>
+      </div>
+    </div>
+  );
+}
