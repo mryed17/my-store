@@ -1,3 +1,4 @@
+
 // auth/forgot-password/page.tsx
 import Link from "next/link";
 
@@ -33,3 +34,4 @@ export default function ForgotPasswordPage() {
       </div>
     </div>
   );
+}
