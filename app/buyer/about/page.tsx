@@ -53,19 +53,19 @@ export default function About() {
       name: "Merryanti",
       role: "Pendiri & CEO",
       bio: "Merry mendirikan ToTong pada tahun 2025 dengan visi menjadi toko serba ada terpercaya di Indonesia. Pengalamannya lebih dari 15 tahun di dunia retail.",
-      image: "/tim/merry.png",
+      image: "/tim/merry.JPG",
     },
     {
       name: "Iin Sinambela",
       role: "Manajer Operasional",
       bio: "Iin memastikan semua operasional ToTong berjalan lancar. Bertanggung jawab atas inventaris dan logistik hingga ke tangan pelanggan.",
-      image: "/tim/iin.jpg",
+      image: "/tim/iin.",
     },
     {
       name: "Yesaya Gumulia",
       role: "Kepala Pemasaran",
       bio: "Dengan pengalaman 10 tahun di bidang digital marketing, Yesaya mengembangkan strategi promosi yang efektif untuk ToTong.",
-      image: "/tim/yesa.png",
+      image: "/tim/yesa.jpg",
     },
   ];
 
@@ -117,18 +117,22 @@ export default function About() {
               transition={{ duration: 0.8 }}
               className="md:w-1/2"
             >
-              <h2 className="text-3xl font-bold mb-6">Cerita Kami</h2>
+              <h2 className="text-orange-500 text-3xl font-bold mb-6">
+                Cerita Kami
+              </h2>
               <div className="space-y-4 text-gray-700">
                 <p>
                   ToTong berawal dari mimpi sederhana untuk menciptakan tempat
                   belanja yang menyediakan segala kebutuhan dalam satu platform.
-                  Didirikan pada tahun 2018 oleh Budi Santoso, kami memulai
-                  sebagai toko online kecil dengan hanya 50 produk pilihan.
+                  Didirikan pada tahun 2018 oleh Merry, Iin, dan Yesa. Kami
+                  memulai sebagai toko online kecil dengan hanya 50 produk
+                  pilihan.
                 </p>
                 <p>
-                  Nama "ToTong" berasal dari kata "Toko Lengkap Terpercaya",
-                  yang mencerminkan komitmen kami untuk menjadi destinasi
-                  belanja serba ada yang dapat diandalkan oleh semua orang.
+                  Nama "ToTong" berasal dari kata "Toko Kelontong Lengkap
+                  Terpercaya", yang mencerminkan komitmen kami untuk menjadi
+                  destinasi belanja serba ada yang dapat diandalkan oleh semua
+                  orang.
                 </p>
                 <p>
                   Dalam perjalanan kami, tantangan terbesar adalah membangun
@@ -155,7 +159,7 @@ export default function About() {
             >
               <div className="relative w-full h-full rounded-lg overflow-hidden shadow-xl">
                 <Image
-                  src="/store-history.png"
+                  src="/image.png"
                   alt="Perusahaan ToTong"
                   layout="fill"
                   objectFit="cover"
@@ -178,7 +182,10 @@ export default function About() {
             variants={staggerChildren}
             className="max-w-3xl mx-auto text-center"
           >
-            <motion.h2 variants={fadeIn} className="text-3xl font-bold mb-2">
+            <motion.h2
+              variants={fadeIn}
+              className="text-orange-500 text-3xl font-bold mb-2"
+            >
               Visi & Misi
             </motion.h2>
             <motion.p variants={fadeIn} className="text-gray-600 mb-16">
@@ -283,7 +290,9 @@ export default function About() {
             variants={fadeIn}
             className="text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-2">Tim Kami</h2>
+            <h2 className="text-orange-500 text-3xl font-bold mb-2">
+              Tim Kami
+            </h2>
             <p className="text-gray-600">
               Orang-orang hebat di balik kesuksesan ToTong
             </p>
@@ -371,7 +380,9 @@ export default function About() {
             viewport={{ once: true }}
             className="max-w-3xl mx-auto text-center mb-16"
           >
-            <h2 className="text-3xl font-bold mb-2">Nilai-Nilai Kami</h2>
+            <h2 className="text-orange-500 text-3xl font-bold mb-2">
+              Nilai-Nilai Kami
+            </h2>
             <p className="text-gray-600">
               Prinsip yang memandu kami dalam melayani Anda
             </p>
