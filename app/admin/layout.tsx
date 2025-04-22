@@ -1,26 +1,14 @@
-import type { Metadata } from "next";
-import { Urbanist } from "next/font/google";
-import "../globals.css";
+// app/admin/layout.tsx
+import { ReactNode } from "react";
 import Navbar from "./components/navbar";
 
-const font = Urbanist({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Admin Toko Online",
-  description: "Admin Toko Online",
-};
-
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className={font.className}>
-        <Navbar />
+    <div className="min-h-screen bg-gray-100">
+      <Navbar />
+      <main className="container mx-auto px-4 py-8">
         {children}
-      </body>
-    </html>
+      </main>
+    </div>
   );
 }
