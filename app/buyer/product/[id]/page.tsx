@@ -14,6 +14,54 @@ interface CartItem {
   image: string;
 }
 
+// Data produk sama dengan yang ada di shop page
+const products = [
+  {
+    id: "prod006",
+    name: "Vitamin C 1000mg",
+    price: 85000,
+    discount: null,
+    image: "/product/kesehatan/vitamin c 1000mg.png",
+    category: "Kesehatan",
+    rating: 4.6,
+    description: "Vitamin C dosis tinggi dengan kandungan 1000mg per tablet untuk meningkatkan daya tahan tubuh dan sebagai antioksidan alami.",
+    stock: 50,
+    sold: 124,
+    benefits: [
+      "Meningkatkan sistem imun tubuh",
+      "Sebagai antioksidan yang melawan radikal bebas",
+      "Membantu pembentukan kolagen untuk kulit sehat",
+      "Meningkatkan penyerapan zat besi",
+      "Membantu pemulihan setelah sakit"
+    ],
+    usage: [
+      "Dewasa: 1 tablet per hari setelah makan",
+      "Anak-anak: Konsultasikan dengan dokter terlebih dahulu",
+      "Dapat dikonsumsi sebelum atau sesudah beraktivitas"
+    ],
+    ingredients: "Asam askorbat (Vitamin C) 1000mg, eksipien q.s"
+  },
+  {
+    id: "prod002",
+    name: "Blender Multifungsi",
+    price: 450000,
+    discount: null,
+    image: "/product/peralatan dapur/Blender Multifungsi.png",
+    category: "Peralatan Dapur",
+    rating: 4.8,
+    description:
+      "Blender serba guna dengan 5 kecepatan dan pisau stainless steel. Dapat digunakan untuk membuat smoothie, jus, soup, dan menghaluskan bumbu. Kapasitas 1.5 liter.",
+    stock: 20,
+    sold: 32,
+    specifications: [
+      "Daya 500 Watt",
+      "Kapasitas 1.5 liter",
+      "5 Kecepatan + Pulse",
+      "Pisau stainless steel 6 bilah",
+    ],
+  },
+];
+
 const PaymentPage = () => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [paymentMethod, setPaymentMethod] = useState("");

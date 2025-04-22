@@ -1,32 +1,44 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 
-// Hook untuk Intersection Observer
+// Custom Hook: Intersection Observer
 const useInView = (threshold = 0.1) => {
   const [isInView, setIsInView] = useState(false);
-  const [ref, setRef] = useState<HTMLElement | null>(null); // Berikan tipe spesifik, bukan 'any'
+  const elementRef = useRef<HTMLElement | null>(null);
 
-  useState(() => {
-    if (!ref) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsInView(entry.isIntersecting);
-      },
+  const setRef = useCallback((node: HTMLElement | null) => {
+    if (elementRef.current) {
+      observer?.unobserve(elementRef.current);
+    }
+
+    if (node) {
+      observer?.observe(node);
+    }
+
+    elementRef.current = node;
+  }, []);
+
+  let observer: IntersectionObserver | null = null;
+
+  useEffect(() => {
+    if (!elementRef.current) return;
+
+    observer = new IntersectionObserver(
+      ([entry]) => setIsInView(entry.isIntersecting),
       { threshold }
     );
-    observer.observe(ref);
-    return () => {
-      if (ref) observer.unobserve(ref);
-    };
-  }, [ref, threshold]);
 
-  return [setRef, isInView];
+    observer.observe(elementRef.current);
+
+    return () => observer?.disconnect();
+  }, [threshold]);
+
+  return [setRef, isInView] as const;
 };
 
 export default function About() {
-  // Gunakan useMemo untuk memastikan array ini tidak dibuat ulang pada setiap render
   const teamMembers = useMemo(
     () => [
       {
@@ -57,34 +69,36 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
-      <section className="relative bg-orange-400 text-white py-20">
+      {/* Hero Section */}
+      <section className="relative bg-orange-400 text-white py-20 overflow-hidden">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <p className="text-lg md:text-xl">
-              Perjalanan kami dalam membangun toko serba ada untuk memenuhi
-              kebutuhan sehari-hari masyarakat Indonesia
-            </p>
-          </div>
-
-          {/* Decorative SVG */}
-          <div className="absolute left-0 top-0 opacity-10">
-            <svg width="300" height="300" viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="80" fill="white" />
-            </svg>
-          </div>
-          <div className="absolute right-0 bottom-0 opacity-10">
-            <svg width="300" height="300" viewBox="0 0 200 200">
-              <circle cx="100" cy="100" r="80" fill="white" />
-            </svg>
-          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">
+            Tentang ToTong
+          </h1>
+          <p className="text-lg md:text-xl">
+            Perjalanan kami dalam membangun toko serba ada untuk memenuhi
+            kebutuhan masyarakat Indonesia
+          </p>
         </div>
+        {/* Decorative SVGs */}
+        <svg
+          className="absolute left-0 top-0 w-72 h-72 opacity-10"
+          viewBox="0 0 200 200"
+        >
+          <circle cx="100" cy="100" r="80" fill="white" />
+        </svg>
+        <svg
+          className="absolute right-0 bottom-0 w-72 h-72 opacity-10"
+          viewBox="0 0 200 200"
+        >
+          <circle cx="100" cy="100" r="80" fill="white" />
+        </svg>
       </section>
 
-      {/* Our Story */}
+      {/* Cerita Kami */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-12">
-          <div className="md:w-1/2 space-y-4" ref={storyRef as any}>
+          <div className="md:w-1/2 space-y-4" ref={storyRef}>
             <h2 className="text-3xl font-bold text-orange-500 mb-4">
               Cerita Kami
             </h2>
@@ -93,8 +107,8 @@ export default function About() {
               belanja yang menyediakan segala kebutuhan dalam satu platform...
             </p>
             <p>
-              Nama &quot;ToTong&quot; berasal dari kata &quot;Toko Kelontong
-              Lengkap Terpercaya&quot;...
+              Nama "ToTong" berasal dari kata "Toko Kelontong Lengkap
+              Terpercaya"...{" "}
             </p>
             <p>
               Dalam perjalanan kami, tantangan terbesar adalah membangun
@@ -105,7 +119,6 @@ export default function About() {
               lebih dari 10.000 produk...
             </p>
           </div>
-
           <div className="md:w-1/2 relative h-80 md:h-96">
             <div className="relative w-full h-full rounded-lg overflow-hidden shadow-xl">
               <Image
@@ -121,53 +134,48 @@ export default function About() {
         </div>
       </section>
 
-      {/* Vision & Mission */}
+      {/* Visi dan Misi */}
       <section className="py-16 md:py-24 bg-orange-50">
-        <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-3xl mx-auto text-center" ref={visionRef as any}>
-            <h2 className="text-3xl font-bold text-orange-500 mb-2">
-              Visi & Misi
-            </h2>
-            <p className="text-gray-600 mb-16">
-              Panduan kami dalam memberikan yang terbaik
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              {/* Visi */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold mb-4">Visi Kami</h3>
-                <p className="text-gray-700">
-                  Menjadi platform belanja terpercaya nomor satu di Indonesia
-                  yang memenuhi segala kebutuhan masyarakat dengan kemudahan,
-                  kecepatan, dan keandalan tertinggi.
-                </p>
-              </div>
-
-              {/* Misi */}
-              <div className="bg-white p-8 rounded-lg shadow-md">
-                <h3 className="text-2xl font-bold mb-4">Misi Kami</h3>
-                <ul className="text-gray-700 text-left space-y-2 list-disc pl-5">
-                  <li>
-                    Menyediakan produk berkualitas dengan harga terjangkau
-                  </li>
-                  <li>
-                    Memberikan pengalaman berbelanja yang nyaman dan efisien
-                  </li>
-                  <li>
-                    Mengembangkan inovasi teknologi untuk meningkatkan layanan
-                  </li>
-                  <li>Mendukung produsen lokal dan produk berkelanjutan</li>
-                </ul>
-              </div>
+        <div
+          className="container mx-auto px-4 md:px-8 text-center"
+          ref={visionRef}
+        >
+          <h2 className="text-3xl font-bold text-orange-500 mb-2">
+            Visi & Misi
+          </h2>
+          <p className="text-gray-600 mb-16">
+            Panduan kami dalam memberikan yang terbaik
+          </p>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Visi Kami</h3>
+              <p className="text-gray-700">
+                Menjadi platform belanja terpercaya nomor satu di Indonesia yang
+                memenuhi segala kebutuhan masyarakat dengan kemudahan,
+                kecepatan, dan keandalan tertinggi.
+              </p>
+            </div>
+            <div className="bg-white p-8 rounded-lg shadow-md">
+              <h3 className="text-2xl font-bold mb-4">Misi Kami</h3>
+              <ul className="text-gray-700 text-left space-y-2 list-disc pl-5">
+                <li>Menyediakan produk berkualitas dengan harga terjangkau</li>
+                <li>
+                  Memberikan pengalaman berbelanja yang nyaman dan efisien
+                </li>
+                <li>
+                  Mengembangkan inovasi teknologi untuk meningkatkan layanan
+                </li>
+                <li>Mendukung produsen lokal dan produk berkelanjutan</li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Team */}
+      {/* Tim Kami */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16" ref={teamRef as any}>
+          <div className="text-center mb-16" ref={teamRef}>
             <h2 className="text-3xl font-bold text-orange-500 mb-2">
               Tim Kami
             </h2>
@@ -175,12 +183,11 @@ export default function About() {
               Orang-orang hebat di balik kesuksesan ToTong
             </p>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 transition-transform duration-300"
+                className="bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300"
               >
                 <div className="relative h-64 w-full">
                   <Image
