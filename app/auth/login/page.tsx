@@ -1,87 +1,142 @@
 // auth/login/page.tsx
-"use client"; // Diperukan karena menggunakan useState dan event handler
+"use client";
 import Link from "next/link";
 import { useState } from "react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Simulasi error: Email atau password kosong
-    if (!email || !password) {
-      setError("Email dan password harus diisi!");
-      return;
-    }
-
-    // Simulasi error: Password terlalu pendek
-    if (password.length < 6) {
-      setError("Password harus minimal 6 karakter!");
-      return;
-    }
-
-    // Jika validasi berhasil, reset error
+    setIsLoading(true);
     setError(null);
-    console.log("Login berhasil"); // Ganti dengan logika login sesungguhnya
+
+    // Simulasi delay untuk loading state
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Validasi
+    if (!email || !password) {
+      setError("Email dan password harus diisi");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!email.includes("@")) {
+      setError("Format email tidak valid");
+      setIsLoading(false);
+      return;
+    }
+
+    if (password.length < 6) {
+      setError("Password minimal 6 karakter");
+      setIsLoading(false);
+      return;
+    }
+
+    // Jika validasi berhasil
+    setIsLoading(false);
+    console.log("Login berhasil");
+    // Redirect atau lakukan login
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
-        
-        {/* Tampilkan error jika ada */}
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+      <div className="bg-white p-8 rounded-xl shadow-sm w-full max-w-md border border-gray-200">
+        <div className="text-center mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">Masuk ke Akun Anda</h1>
+          <p className="text-gray-500 mt-2">Selamat datang kembali!</p>
+        </div>
+
+        {/* Error Message (Login_error) */}
         {error && (
-          <div className="mb-4 p-3 bg-red-100 border-l-4 border-red-500 text-red-700">
-            <p>{error}</p>
+          <div className="mb-6 p-3 bg-red-50 rounded-lg flex items-start gap-3 border border-red-200">
+            <ExclamationCircleIcon className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
+            <div>
+              <p className="text-sm font-medium text-red-800">{error}</p>
+              <p className="text-xs text-red-600 mt-1">Cek kembali email dan password Anda</p>
+            </div>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border ${error ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
-              required
-            />
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              Email
+            </label>
+            <div className="relative">
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={`block w-full px-3 py-2.5 rounded-lg border ${error ? "border-red-300 focus:border-red-500 focus:ring-red-500" : "border-gray-300 focus:border-blue-500 focus:ring-blue-500"} shadow-sm placeholder-gray-400 focus:outline-none`}
+                placeholder="email@contoh.com"
+              />
+              {error && (
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+              )}
+            </div>
           </div>
-          
+
           <div>
-            <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={`mt-1 block w-full px-3 py-2 border ${error ? "border-red-500" : "border-gray-300"} rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500`}
-              required
-            />
+            <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
+              Password
+            </label>
+            <div className="relative">
+              <input
+                id="password"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={`block w-full px-3 py-2.5 rounded-lg border ${error ? "border-red-300 focus:border-red-500 focus:ring-red-500" : "border-gray-300 focus:border-blue-500 focus:ring-blue-500"} shadow-sm placeholder-gray-400 focus:outline-none`}
+                placeholder="••••••••"
+              />
+              {error && (
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 absolute right-3 top-1/2 transform -translate-y-1/2" />
+              )}
+            </div>
           </div>
 
           <div className="flex items-center justify-between">
-            <Link href="/auth/forgot-password" className="text-sm text-blue-600 hover:underline">
-              Lupa Password?
+            <div className="flex items-center">
+              <input
+                id="remember-me"
+                name="remember-me"
+                type="checkbox"
+                className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+              />
+              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-700">
+                Ingat saya
+              </label>
+            </div>
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm font-medium text-blue-600 hover:text-blue-500"
+            >
+              Lupa password?
             </Link>
           </div>
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={isLoading}
+            className={`w-full flex justify-center py-2.5 px-4 rounded-lg border border-transparent shadow-sm text-sm font-medium text-white ${isLoading ? "bg-blue-400" : "bg-blue-600 hover:bg-blue-700"} focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
           >
-            Login
+            {isLoading ? "Memproses..." : "Masuk"}
           </button>
         </form>
 
-        <div className="mt-4 text-center">
-          <span className="text-sm text-gray-600">Belum punya akun? </span>
-          <Link href="/auth/register" className="text-blue-600 hover:underline">
-            Registrasi
-          </Link>
+        <div className="mt-6 text-center text-sm">
+          <p className="text-gray-500">
+            Belum punya akun?{" "}
+            <Link href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500">
+              Daftar sekarang
+            </Link>
+          </p>
         </div>
       </div>
     </div>
