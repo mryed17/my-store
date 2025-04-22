@@ -1,139 +1,109 @@
-// app/admin/products/add/page.tsx
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 
 export default function AddProductPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
-    category: "",
-    price: "",
-    stock: "",
-    description: "",
+    price: 0,
+    stock: 0,
+    description: ""
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData({
+      ...formData,
+      [name]: name === "price" || name === "stock" ? Number(value) : value
+    });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      alert("Produk berhasil ditambahkan!");
-      router.push("/admin/products");
-    }, 1000);
+    // Simpan ke localStorage (bisa diganti dengan API call)
+    const products = JSON.parse(localStorage.getItem("products") || "[]");
+    const newProduct = {
+      ...formData,
+      id: Date.now().toString()
+    };
+    localStorage.setItem("products", JSON.stringify([...products, newProduct]));
+    
+    router.push("/admin/products");
   };
 
   return (
-    <div>
-      <div className="flex items-center mb-6">
-        <Link href="/admin/products" className="text-blue-600 hover:underline mr-4">
-          &larr; Kembali
-        </Link>
+    <div className="container mx-auto p-4">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Tambah Produk Baru</h1>
       </div>
 
-      <div className="bg-white rounded-lg shadow p-6">
+      <div className="bg-white p-6 rounded-lg shadow">
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
-              Nama Produk
-            </label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              required
-            />
-          </div>
-          
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
-              Kategori
-            </label>
-            <select
-              id="category"
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              required
-            >
-              <option value="">Pilih Kategori</option>
-              <option value="Elektronik">Elektronik</option>
-              <option value="Smartphone">Smartphone</option>
-              <option value="Aksesoris">Aksesoris</option>
-              <option value="Fashion">Fashion</option>
-            </select>
-          </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
-                Harga (Rp)
-              </label>
+              <label className="block mb-2">Nama Produk*</label>
               <input
-                type="number"
-                id="price"
-                name="price"
-                value={formData.price}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
                 required
               />
             </div>
             
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="stock">
-                Stok
-              </label>
+              <label className="block mb-2">Harga (Rp)*</label>
               <input
                 type="number"
-                id="stock"
+                name="price"
+                value={formData.price}
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
+                required
+              />
+            </div>
+            
+            <div>
+              <label className="block mb-2">Stok*</label>
+              <input
+                type="number"
                 name="stock"
                 value={formData.stock}
-                onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
+                onChange={handleInputChange}
+                className="w-full p-2 border rounded"
                 required
               />
             </div>
           </div>
           
-          <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
-              Deskripsi Produk
-            </label>
+          <div className="mb-4">
+            <label className="block mb-2">Deskripsi</label>
             <textarea
-              id="description"
               name="description"
               value={formData.description}
-              onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
-              rows={4}
+              onChange={handleInputChange}
+              className="w-full p-2 border rounded"
+              rows={3}
             />
           </div>
           
-          <div className="flex justify-end">
+          <div className="flex gap-2">
             <button
               type="submit"
-              disabled={isSubmitting}
-              className={`px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${
-                isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-              }`}
+              className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
             >
-              {isSubmitting ? "Menyimpan..." : "Simpan Produk"}
+              Simpan Produk
+            </button>
+            <button
+              type="button"
+              onClick={() => router.push("/admin/products")}
+              className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+            >
+              Batal
             </button>
           </div>
         </form>
