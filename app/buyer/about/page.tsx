@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
 import Image from "next/image";
 
 // Hook untuk Intersection Observer
 const useInView = (threshold = 0.1) => {
   const [isInView, setIsInView] = useState(false);
-  const [ref, setRef] = useState(null);
+  const [ref, setRef] = useState<HTMLElement | null>(null); // Berikan tipe spesifik, bukan 'any'
 
-  useEffect(() => {
+  useState(() => {
     if (!ref) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -26,26 +26,30 @@ const useInView = (threshold = 0.1) => {
 };
 
 export default function About() {
-  const teamMembers = [
-    {
-      name: "Merryanti",
-      role: "Pendiri & CEO",
-      bio: "Merry mendirikan ToTong pada tahun 2025 dengan visi menjadi toko serba ada terpercaya di Indonesia. Pengalamannya lebih dari 15 tahun di dunia retail.",
-      image: "/tim/merry.png",
-    },
-    {
-      name: "Iin Sinambela",
-      role: "Manajer Operasional",
-      bio: "Iin memastikan semua operasional ToTong berjalan lancar. Bertanggung jawab atas inventaris dan logistik hingga ke tangan pelanggan.",
-      image: "/tim/iin.png",
-    },
-    {
-      name: "Yesaya Gumulia",
-      role: "Kepala Pemasaran",
-      bio: "Dengan pengalaman 10 tahun di bidang digital marketing, Yesaya mengembangkan strategi promosi yang efektif untuk ToTong.",
-      image: "/tim/yesa.jpg",
-    },
-  ];
+  // Gunakan useMemo untuk memastikan array ini tidak dibuat ulang pada setiap render
+  const teamMembers = useMemo(
+    () => [
+      {
+        name: "Merryanti",
+        role: "Pendiri & CEO",
+        bio: "Merry mendirikan ToTong pada tahun 2025 dengan visi menjadi toko serba ada terpercaya di Indonesia. Pengalamannya lebih dari 15 tahun di dunia retail.",
+        image: "/tim/merry.png",
+      },
+      {
+        name: "Iin Sinambela",
+        role: "Manajer Operasional",
+        bio: "Iin memastikan semua operasional ToTong berjalan lancar. Bertanggung jawab atas inventaris dan logistik hingga ke tangan pelanggan.",
+        image: "/tim/iin.png",
+      },
+      {
+        name: "Yesaya Gumulia",
+        role: "Kepala Pemasaran",
+        bio: "Dengan pengalaman 10 tahun di bidang digital marketing, Yesaya mengembangkan strategi promosi yang efektif untuk ToTong.",
+        image: "/tim/yesa.jpg",
+      },
+    ],
+    []
+  );
 
   const [storyRef] = useInView();
   const [visionRef] = useInView();
@@ -80,7 +84,7 @@ export default function About() {
       {/* Our Story */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-12">
-          <div className="md:w-1/2 space-y-4" ref={storyRef}>
+          <div className="md:w-1/2 space-y-4" ref={storyRef as any}>
             <h2 className="text-3xl font-bold text-orange-500 mb-4">
               Cerita Kami
             </h2>
@@ -89,8 +93,8 @@ export default function About() {
               belanja yang menyediakan segala kebutuhan dalam satu platform...
             </p>
             <p>
-              Nama "ToTong" berasal dari kata "Toko Kelontong Lengkap
-              Terpercaya"...
+              Nama &quot;ToTong&quot; berasal dari kata &quot;Toko Kelontong
+              Lengkap Terpercaya&quot;...
             </p>
             <p>
               Dalam perjalanan kami, tantangan terbesar adalah membangun
@@ -120,7 +124,7 @@ export default function About() {
       {/* Vision & Mission */}
       <section className="py-16 md:py-24 bg-orange-50">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="max-w-3xl mx-auto text-center" ref={visionRef}>
+          <div className="max-w-3xl mx-auto text-center" ref={visionRef as any}>
             <h2 className="text-3xl font-bold text-orange-500 mb-2">
               Visi & Misi
             </h2>
@@ -163,7 +167,7 @@ export default function About() {
       {/* Team */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <div className="text-center mb-16" ref={teamRef}>
+          <div className="text-center mb-16" ref={teamRef as any}>
             <h2 className="text-3xl font-bold text-orange-500 mb-2">
               Tim Kami
             </h2>
