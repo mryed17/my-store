@@ -9,7 +9,7 @@ export default function EditProductPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get("id");
-  
+
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -28,7 +28,7 @@ export default function EditProductPage() {
       return;
     }
 
-    // Simulate fetching product data
+    // Simulasi pengambilan data produk
     setTimeout(() => {
       setFormData({
         id: productId,
@@ -42,16 +42,20 @@ export default function EditProductPage() {
     }, 500);
   }, [productId, router]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate API call
+
+    // Simulasi update data
     setTimeout(() => {
       setIsSubmitting(false);
       alert("Produk berhasil diperbarui!");
@@ -60,13 +64,18 @@ export default function EditProductPage() {
   };
 
   if (loading) {
-    return <div className="flex justify-center py-10">Memuat data produk...</div>;
+    return (
+      <div className="flex justify-center py-10">Memuat data produk...</div>
+    );
   }
 
   return (
     <div>
       <div className="flex items-center mb-6">
-        <Link href="/admin/products" className="text-blue-600 hover:underline mr-4">
+        <Link
+          href="/admin/products"
+          className="text-blue-600 hover:underline mr-4"
+        >
           &larr; Kembali
         </Link>
         <h1 className="text-2xl font-bold">Edit Produk: {formData.name}</h1>
@@ -75,7 +84,10 @@ export default function EditProductPage() {
       <div className="bg-white rounded-lg shadow p-6">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="id">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="id"
+            >
               ID Produk
             </label>
             <input
@@ -86,9 +98,12 @@ export default function EditProductPage() {
               disabled
             />
           </div>
-          
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="name"
+            >
               Nama Produk
             </label>
             <input
@@ -101,9 +116,12 @@ export default function EditProductPage() {
               required
             />
           </div>
-          
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="category">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="category"
+            >
               Kategori
             </label>
             <select
@@ -121,10 +139,13 @@ export default function EditProductPage() {
               <option value="Fashion">Fashion</option>
             </select>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="price"
+              >
                 Harga (Rp)
               </label>
               <input
@@ -137,9 +158,12 @@ export default function EditProductPage() {
                 required
               />
             </div>
-            
+
             <div>
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="stock">
+              <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                htmlFor="stock"
+              >
                 Stok
               </label>
               <input
@@ -153,9 +177,12 @@ export default function EditProductPage() {
               />
             </div>
           </div>
-          
+
           <div className="mb-6">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="description">
+            <label
+              className="block text-gray-700 text-sm font-bold mb-2"
+              htmlFor="description"
+            >
               Deskripsi Produk
             </label>
             <textarea
@@ -167,7 +194,7 @@ export default function EditProductPage() {
               rows={4}
             />
           </div>
-          
+
           <div className="flex justify-end">
             <button
               type="submit"
