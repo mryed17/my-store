@@ -12,7 +12,8 @@ Iin Anugrah Sinambela ( 231712621 ) = Bagian Pengerjaan Halaman Admin
 Proyek pembuatan website bernama ToTong yang didalamnya menjual barang serba ada seperti minuman, makanan dan perlatan 
 kebutuhan lainnya. Menggunakan Visual Studio Code dengan Next.js, GitHub dan juga Vercel untuk mengerjakan proyek ini.
 
-## Link GitHub
+## Link GitHub 
+https://github.com/mryed17/my-store.git
 
 ## Link Deploy
-
+https://my-store-git-main-merrys-projects-012fcd39.vercel.app/
