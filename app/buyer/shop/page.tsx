@@ -4,8 +4,24 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+  discount: number | null;
+  image: string;
+  category: string;
+  rating: number;
+  description: string;
+  stock: number;
+  sold: number;
+}
 
 export default function Shop() {
+  const router = useRouter();
+
   // Product categories
   const categories = [
     "Semua",
@@ -18,7 +34,7 @@ export default function Shop() {
   ];
 
   // Products data
-  const products = [
+  const products: Product[] = [
     {
       id: "prod001",
       name: "SmartWatch T3",
@@ -178,15 +194,42 @@ export default function Shop() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
   const [sortOption, setSortOption] = useState("popular");
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
   const [isLoading, setIsLoading] = useState(true);
-  const [cartCount, setCartCount] = useState(0); // Menambahkan state untuk keranjang
+  const [cartCount, setCartCount] = useState(0);
 
   // Loading effect
   useEffect(() => {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Initialize cart count from localStorage
+  useEffect(() => {
+    const loadCartCount = () => {
+      const storedCart = localStorage.getItem("cart");
+      if (storedCart) {
+        try {
+          const cartItems = JSON.parse(storedCart);
+          const count = cartItems.reduce(
+            (total: number, item: any) => total + (item.quantity || 0),
+            0
+          );
+          setCartCount(count);
+        } catch (error) {
+          console.error("Error parsing cart data:", error);
+        }
+      }
+    };
+
+    loadCartCount();
+    window.addEventListener("cartUpdated", loadCartCount);
+
+    return () => {
+      window.removeEventListener("cartUpdated", loadCartCount);
+    };
   }, []);
 
   // Filter products based on search, category, and sort
@@ -195,13 +238,12 @@ export default function Shop() {
 
     // Filter by search term
     if (searchTerm) {
+      const term = searchTerm.toLowerCase();
       result = result.filter(
         (product) =>
-          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
-          product.category.toLowerCase().includes(searchTerm.toLowerCase())
+          product.name.toLowerCase().includes(term) ||
+          product.description.toLowerCase().includes(term) ||
+          product.category.toLowerCase().includes(term)
       );
     }
 
@@ -231,25 +273,99 @@ export default function Shop() {
     }
 
     setFilteredProducts(result);
-  }, [searchTerm, selectedCategory, sortOption]);
+  }, [searchTerm, selectedCategory, sortOption, products]);
 
   // Format price to IDR
-  const formatPrice = (price) => {
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
       currency: "IDR",
       minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
     }).format(price);
+  };
+
+  // Buy now function
+  const buyNow = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const checkoutItem = {
+      id: parseInt(product.id.replace("prod", "")) || 0,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.discount || null,
+      quantity: 1,
+      image: product.image,
+    };
+
+    localStorage.setItem("checkoutItems", JSON.stringify([checkoutItem]));
+    router.push("/payment");
+  };
+
+  // Add to cart function
+  const addToCart = (e: React.MouseEvent, product: Product) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    let cartItems: any[] = [];
+    const currentCart = localStorage.getItem("cart");
+
+    if (currentCart) {
+      try {
+        cartItems = JSON.parse(currentCart);
+      } catch (error) {
+        console.error("Error parsing cart data:", error);
+        cartItems = [];
+      }
+    }
+
+    const productId = parseInt(product.id.replace("prod", "")) || 0;
+    const existingItemIndex = cartItems.findIndex(
+      (item) => item.id === productId
+    );
+
+    if (existingItemIndex !== -1) {
+      cartItems[existingItemIndex].quantity += 1;
+    } else {
+      cartItems.push({
+        id: productId,
+        name: product.name,
+        price: product.price,
+        originalPrice: product.discount || null,
+        quantity: 1,
+        image: product.image,
+      });
+    }
+
+    try {
+      localStorage.setItem("cart", JSON.stringify(cartItems));
+      const newCount = cartItems.reduce(
+        (total: number, item: any) => total + (item.quantity || 0),
+        0
+      );
+      setCartCount(newCount);
+      window.dispatchEvent(new Event("cartUpdated"));
+    } catch (error) {
+      console.error("Error saving to cart:", error);
+    }
+  };
+
+  // Handle navigation to product detail page
+  const navigateToProduct = (productId: string) => {
+    router.push(`./product/${productId}`);
+  };
+
+  // Handle navigation to cart page
+  const navigateToCart = () => {
+    router.push("./cart");
   };
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header dengan Search dan Keranjang */}
+      {/* Header with Search and Cart */}
       <section className="py-4 bg-white shadow-md sticky top-0 z-10">
         <div className="container mx-auto px-4 md:px-8">
           <div className="flex items-center justify-between">
-            {/* Search Bar dan Keranjang */}
             <div className="flex items-center w-full max-w-xl mx-4">
               <div className="relative flex-grow">
                 <input
@@ -275,41 +391,42 @@ export default function Shop() {
                 </svg>
               </div>
 
-              {/* Keranjang */}
+              {/* Cart - Menggunakan onClick untuk navigasi programatis */}
               <div className="ml-4 relative">
-                <Link href="/cart">
-                  <div className="flex items-center p-2 hover:bg-gray-100 rounded-full cursor-pointer">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="h-6 w-6 text-gray-700"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
-                    {cartCount > 0 && (
-                      <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
-                        {cartCount}
-                      </span>
-                    )}
-                  </div>
-                </Link>
+                <div
+                  onClick={navigateToCart}
+                  className="flex items-center p-2 hover:bg-gray-100 rounded-full cursor-pointer"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-6 w-6 text-gray-700"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-orange-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Categories dibawah search bar */}
+          {/* Categories */}
           <div className="mt-4 overflow-x-auto hide-scrollbar">
             <div className="flex space-x-2">
-              {categories.map((category, index) => (
+              {categories.map((category) => (
                 <button
-                  key={index}
+                  key={category}
                   onClick={() => setSelectedCategory(category)}
                   className={`px-4 py-2 rounded-full whitespace-nowrap ${
                     selectedCategory === category
@@ -323,7 +440,7 @@ export default function Shop() {
             </div>
           </div>
 
-          {/* Mobile Sort - hanya tampil di layar kecil */}
+          {/* Mobile Sort */}
           <div className="mt-4 md:hidden">
             <select
               value={sortOption}
@@ -343,7 +460,6 @@ export default function Shop() {
       <section className="py-8">
         <div className="container mx-auto px-4 md:px-8">
           {isLoading ? (
-            // Loading State
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {[...Array(8)].map((_, index) => (
                 <div
@@ -360,7 +476,6 @@ export default function Shop() {
               ))}
             </div>
           ) : filteredProducts.length > 0 ? (
-            // Products Grid
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
                 <motion.div
@@ -371,18 +486,26 @@ export default function Shop() {
                   whileHover={{ y: -8, transition: { duration: 0.2 } }}
                   className="bg-white rounded-lg shadow-md overflow-hidden"
                 >
-                  <Link href={`/product/${product.id}`}>
+                  {/* Menggunakan onClick untuk navigasi programatis */}
+                  <div
+                    className="block cursor-pointer"
+                    onClick={() => navigateToProduct(product.id)}
+                  >
                     <div className="relative h-48 bg-gray-100">
                       <Image
                         src={product.image}
                         alt={product.name}
-                        layout="fill"
-                        objectFit="cover"
+                        fill
+                        className="object-contain"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                       {product.discount && (
                         <div className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">
                           {Math.round(
-                            (1 - product.price / product.discount) * 100
+                            (1 -
+                              product.price /
+                                (product.discount || product.price)) *
+                              100
                           )}
                           % OFF
                         </div>
@@ -410,7 +533,7 @@ export default function Shop() {
                           {product.rating}
                         </div>
                       </div>
-                      <h3 className="font-bold text-gray-800">
+                      <h3 className="font-bold text-gray-800 line-clamp-2">
                         {product.name}
                       </h3>
                       <div className="mt-1">
@@ -426,48 +549,43 @@ export default function Shop() {
                       <div className="mt-2 text-xs text-gray-500">
                         Terjual {product.sold} | Stok {product.stock}
                       </div>
-
-                      {/* Tombol beli dan keranjang (seperti contoh gambar) */}
-                      <div className="mt-3 flex gap-2">
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            alert(`Beli Sekarang: ${product.name}`);
-                          }}
-                          className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm font-medium transition-colors"
-                        >
-                          Beli
-                        </button>
-                        <button
-                          onClick={(e) => {
-                            e.preventDefault();
-                            setCartCount(cartCount + 1);
-                          }}
-                          className="w-12 h-10 flex items-center justify-center border border-orange-500 text-orange-500 hover:bg-orange-100 rounded-lg transition-colors"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                            />
-                          </svg>
-                        </button>
-                      </div>
                     </div>
-                  </Link>
+                  </div>
+
+                  <div className="p-4 pt-0">
+                    <div className="flex gap-2">
+                      <button
+                        onClick={(e) => buyNow(e, product)}
+                        className="flex-1 bg-orange-500 hover:bg-orange-600 text-white py-2 rounded-lg text-sm font-medium transition-colors"
+                      >
+                        Beli
+                      </button>
+                      <button
+                        onClick={(e) => addToCart(e, product)}
+                        className="w-12 h-10 flex items-center justify-center border border-orange-500 text-orange-500 hover:bg-orange-100 rounded-lg transition-colors"
+                        aria-label="Add to cart"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="h-5 w-5"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
                 </motion.div>
               ))}
             </div>
           ) : (
-            // No Products Found
             <div className="text-center py-16">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
