@@ -53,13 +53,13 @@ export default function About() {
       name: "Merryanti",
       role: "Pendiri & CEO",
       bio: "Merry mendirikan ToTong pada tahun 2025 dengan visi menjadi toko serba ada terpercaya di Indonesia. Pengalamannya lebih dari 15 tahun di dunia retail.",
-      image: "/tim/merry.JPG",
+      image: "/tim/merry.png",
     },
     {
       name: "Iin Sinambela",
       role: "Manajer Operasional",
       bio: "Iin memastikan semua operasional ToTong berjalan lancar. Bertanggung jawab atas inventaris dan logistik hingga ke tangan pelanggan.",
-      image: "/tim/iin.",
+      image: "/tim/iin.png",
     },
     {
       name: "Yesaya Gumulia",
@@ -498,7 +498,7 @@ export default function About() {
               Jelajahi koleksi produk kami yang lengkap dan temukan kebutuhan
               Anda dengan harga terbaik
             </p>
-            <Link href="/shop">
+            <Link href="./shop">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
