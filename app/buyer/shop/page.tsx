@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 
 interface Product {
@@ -352,12 +351,12 @@ export default function Shop() {
 
   // Handle navigation to product detail page
   const navigateToProduct = (productId: string) => {
-    router.push(`./product/${productId}`);
+    router.push(`/product/${productId}`);
   };
 
   // Handle navigation to cart page
   const navigateToCart = () => {
-    router.push("./cart");
+    router.push("/cart");
   };
 
   return (
@@ -478,13 +477,9 @@ export default function Shop() {
           ) : filteredProducts.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredProducts.map((product) => (
-                <motion.div
+                <div
                   key={product.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4 }}
-                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
-                  className="bg-white rounded-lg shadow-md overflow-hidden"
+                  className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 transform hover:-translate-y-1"
                 >
                   {/* Menggunakan onClick untuk navigasi programatis */}
                   <div
@@ -582,7 +577,7 @@ export default function Shop() {
                       </button>
                     </div>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           ) : (
