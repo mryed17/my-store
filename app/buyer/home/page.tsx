@@ -7,10 +7,23 @@ import { motion } from "framer-motion";
 
 export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
+
   const banners = [
-    {image: "/banner1.jpg",},
-    {image: "/banner2.png",},
-    {image: "/banner3.png",},
+    {
+      image: "/banner1.jpg",
+      title: "Diskon Besar-Besaran!",
+      description: "Nikmati promo hingga 70% untuk produk pilihan.",
+    },
+    {
+      image: "/banner2.png",
+      title: "Belanja Hemat",
+      description: "Produk berkualitas dengan harga terjangkau.",
+    },
+    {
+      image: "/banner3.png",
+      title: "Pengiriman Cepat",
+      description: "Belanja sekarang, barang cepat sampai ke rumah Anda.",
+    },
   ];
 
   const featuredProducts = [
@@ -68,8 +81,7 @@ export default function Home() {
             <p className="text-lg md:text-xl mb-8">
               Tempat belanja serba ada yang siap memenuhi segala kebutuhan Anda.
               Kami hadir untuk memberikan pengalaman belanja yang mudah, cepat,
-              dan menyenangkan. Dari kebutuhan sehari-hari hingga barang unik
-              yang sulit ditemukan, semuanya tersedia di ToTong!
+              dan menyenangkan.
             </p>
             <Link href="./shop">
               <motion.button
@@ -82,8 +94,6 @@ export default function Home() {
             </Link>
           </motion.div>
         </div>
-
-        {/* Decorative Elements */}
         <div className="absolute right-0 bottom-0 opacity-20 md:opacity-30">
           <svg width="300" height="300" viewBox="0 0 200 200">
             <circle cx="100" cy="100" r="80" fill="white" />
@@ -96,8 +106,9 @@ export default function Home() {
       {/* Banner Section */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-center mb-8">Promo Spesial</h2>
-
+          <h2 className="text-orange-500 text-3xl font-bold text-center mb-8">
+            Promo Spesial
+          </h2>
           <div className="relative h-64 md:h-80 overflow-hidden rounded-xl shadow-lg">
             {banners.map((banner, index) => (
               <motion.div
@@ -130,7 +141,6 @@ export default function Home() {
               </motion.div>
             ))}
 
-            {/* Banner Navigation Dots */}
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
               {banners.map((_, index) => (
                 <button
@@ -149,13 +159,12 @@ export default function Home() {
       {/* Featured Products Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-center mb-2">
+          <h2 className="text-orange-500 text-3xl font-bold text-center mb-2">
             Produk Unggulan
           </h2>
           <p className="text-center text-gray-600 mb-12">
             Pilihan terbaik dari berbagai kategori
           </p>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {featuredProducts.map((product, index) => (
               <motion.div
@@ -182,18 +191,10 @@ export default function Home() {
                   <p className="text-gray-700 font-medium mt-1">
                     {product.price}
                   </p>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="w-full mt-4 bg-orange-400 text-white py-2 rounded-lg font-medium hover:bg-orange-500 transition"
-                  >
-                    Beli
-                  </motion.button>
                 </div>
               </motion.div>
             ))}
           </div>
-
           <div className="text-center mt-12">
             <Link href="./shop">
               <motion.button
@@ -211,18 +212,17 @@ export default function Home() {
       {/* Store Benefits Section */}
       <section className="py-16 bg-orange-50">
         <div className="container mx-auto px-4 md:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
+          <h2 className="text-orange-500 text-3xl font-bold text-center mb-12">
             Kenapa Belanja di ToTong?
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Keuntungan 1 */}
             <motion.div
               className="bg-white p-6 rounded-lg shadow text-center"
               whileHover={{ y: -5 }}
             >
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -242,13 +242,13 @@ export default function Home() {
               </p>
             </motion.div>
 
+            {/* Keuntungan 2 */}
             <motion.div
               className="bg-white p-6 rounded-lg shadow text-center"
               whileHover={{ y: -5 }}
             >
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -268,13 +268,13 @@ export default function Home() {
               </p>
             </motion.div>
 
+            {/* Keuntungan 3 */}
             <motion.div
               className="bg-white p-6 rounded-lg shadow text-center"
               whileHover={{ y: -5 }}
             >
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
-                  xmlns="http://www.w3.org/2000/svg"
                   className="h-8 w-8"
                   fill="none"
                   viewBox="0 0 24 24"
