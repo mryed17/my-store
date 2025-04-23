@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 
 // Hook untuk Intersection Observer
 const useInView = (threshold = 0.1) => {
@@ -27,21 +26,6 @@ const useInView = (threshold = 0.1) => {
 };
 
 export default function About() {
-  const fadeIn = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
-  };
-
-  const staggerChildren = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
   const teamMembers = [
     {
       name: "Merryanti",
@@ -63,26 +47,21 @@ export default function About() {
     },
   ];
 
-  const [storyRef, storyInView] = useInView();
-  const [visionRef, visionInView] = useInView();
-  const [teamRef, teamInView] = useInView();
+  const [storyRef] = useInView();
+  const [visionRef] = useInView();
+  const [teamRef] = useInView();
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero */}
       <section className="relative bg-orange-400 text-white py-20">
         <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-3xl mx-auto"
-          >
+          <div className="max-w-3xl mx-auto">
             <p className="text-lg md:text-xl">
               Perjalanan kami dalam membangun toko serba ada untuk memenuhi
               kebutuhan sehari-hari masyarakat Indonesia
             </p>
-          </motion.div>
+          </div>
 
           {/* Decorative SVG */}
           <div className="absolute left-0 top-0 opacity-10">
@@ -101,14 +80,7 @@ export default function About() {
       {/* Our Story */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8 flex flex-col md:flex-row gap-12">
-          <motion.div
-            ref={storyRef}
-            initial="hidden"
-            animate={storyInView ? "visible" : "hidden"}
-            variants={fadeIn}
-            transition={{ duration: 0.8 }}
-            className="md:w-1/2 space-y-4"
-          >
+          <div className="md:w-1/2 space-y-4" ref={storyRef}>
             <h2 className="text-3xl font-bold text-orange-500 mb-4">
               Cerita Kami
             </h2>
@@ -118,7 +90,7 @@ export default function About() {
             </p>
             <p>
               Nama "ToTong" berasal dari kata "Toko Kelontong Lengkap
-              Terpercaya"...{" "}
+              Terpercaya"...
             </p>
             <p>
               Dalam perjalanan kami, tantangan terbesar adalah membangun
@@ -128,15 +100,9 @@ export default function About() {
               Kini, ToTong telah berkembang menjadi platform belanja dengan
               lebih dari 10.000 produk...
             </p>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial="hidden"
-            animate={storyInView ? "visible" : "hidden"}
-            variants={fadeIn}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="md:w-1/2 relative h-80 md:h-96"
-          >
+          <div className="md:w-1/2 relative h-80 md:h-96">
             <div className="relative w-full h-full rounded-lg overflow-hidden shadow-xl">
               <Image
                 src="/image.png"
@@ -147,49 +113,34 @@ export default function About() {
             </div>
             <div className="absolute -bottom-5 -right-5 w-40 h-40 bg-orange-100 rounded-lg -z-10"></div>
             <div className="absolute -top-5 -left-5 w-24 h-24 bg-orange-200 rounded-lg -z-10"></div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Vision & Mission */}
       <section className="py-16 md:py-24 bg-orange-50">
         <div className="container mx-auto px-4 md:px-8">
-          <motion.div
-            ref={visionRef}
-            initial="hidden"
-            animate={visionInView ? "visible" : "hidden"}
-            variants={staggerChildren}
-            className="max-w-3xl mx-auto text-center"
-          >
-            <motion.h2
-              variants={fadeIn}
-              className="text-3xl font-bold text-orange-500 mb-2"
-            >
+          <div className="max-w-3xl mx-auto text-center" ref={visionRef}>
+            <h2 className="text-3xl font-bold text-orange-500 mb-2">
               Visi & Misi
-            </motion.h2>
-            <motion.p variants={fadeIn} className="text-gray-600 mb-16">
+            </h2>
+            <p className="text-gray-600 mb-16">
               Panduan kami dalam memberikan yang terbaik
-            </motion.p>
+            </p>
 
             <div className="grid md:grid-cols-2 gap-8">
               {/* Visi */}
-              <motion.div
-                variants={fadeIn}
-                className="bg-white p-8 rounded-lg shadow-md"
-              >
+              <div className="bg-white p-8 rounded-lg shadow-md">
                 <h3 className="text-2xl font-bold mb-4">Visi Kami</h3>
                 <p className="text-gray-700">
                   Menjadi platform belanja terpercaya nomor satu di Indonesia
                   yang memenuhi segala kebutuhan masyarakat dengan kemudahan,
                   kecepatan, dan keandalan tertinggi.
                 </p>
-              </motion.div>
+              </div>
 
               {/* Misi */}
-              <motion.div
-                variants={fadeIn}
-                className="bg-white p-8 rounded-lg shadow-md"
-              >
+              <div className="bg-white p-8 rounded-lg shadow-md">
                 <h3 className="text-2xl font-bold mb-4">Misi Kami</h3>
                 <ul className="text-gray-700 text-left space-y-2 list-disc pl-5">
                   <li>
@@ -203,41 +154,29 @@ export default function About() {
                   </li>
                   <li>Mendukung produsen lokal dan produk berkelanjutan</li>
                 </ul>
-              </motion.div>
+              </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Team */}
       <section className="py-16 md:py-24 bg-white">
         <div className="container mx-auto px-4 md:px-8">
-          <motion.div
-            ref={teamRef}
-            initial="hidden"
-            animate={teamInView ? "visible" : "hidden"}
-            variants={fadeIn}
-            className="text-center mb-16"
-          >
+          <div className="text-center mb-16" ref={teamRef}>
             <h2 className="text-3xl font-bold text-orange-500 mb-2">
               Tim Kami
             </h2>
             <p className="text-gray-600">
               Orang-orang hebat di balik kesuksesan ToTong
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 50 }}
-                animate={
-                  teamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }
-                }
-                transition={{ duration: 0.5, delay: index * 0.2 }}
-                whileHover={{ y: -10 }}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-2 transition-transform duration-300"
               >
                 <div className="relative h-64 w-full">
                   <Image
@@ -252,7 +191,7 @@ export default function About() {
                   <p className="text-orange-500 mb-2">{member.role}</p>
                   <p className="text-gray-600 text-sm">{member.bio}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
