@@ -1,7 +1,9 @@
 "use client";
+// Hapus Link jika tidak digunakan, atau gunakan jika memang dibutuhkan
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState } from "react"; // Hapus useEffect jika tidak digunakan
 import { useRouter } from "next/navigation";
+import Image from "next/image"; // Tambahkan import Image
 
 export default function RegisterPage() {
   const [name, setName] = useState("");
@@ -16,7 +18,10 @@ export default function RegisterPage() {
 
   const router = useRouter();
 
-  const showPopup = (message: string, type: "success" | "error" = "success") => {
+  const showPopup = (
+    message: string,
+    type: "success" | "error" = "success"
+  ) => {
     setToastMessage(message);
     setToastType(type);
     setShowToast(true);
@@ -68,16 +73,20 @@ export default function RegisterPage() {
       <div className="flex w-full max-w-5xl bg-white rounded-3xl shadow-xl overflow-hidden">
         {/* Kiri - Logo */}
         <div className="w-1/2 bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center p-6">
-          <img src="/totong1.png" alt="Logo" className="h-60 w-90" />
+          <Image src="/totong1.png" alt="Logo" width={90} height={60} />
         </div>
 
         {/* Kanan - Form Registrasi */}
         <div className="w-1/2 p-10">
-          <h1 className="text-3xl font-bold text-center text-neutral-900 mb-6">Registrasi</h1>
+          <h1 className="text-3xl font-bold text-center text-neutral-900 mb-6">
+            Registrasi
+          </h1>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Nama Lengkap
+              </label>
               <input
                 type="text"
                 value={name}
@@ -88,7 +97,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Email
+              </label>
               <input
                 type="text"
                 value={email}
@@ -99,7 +110,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Password
+              </label>
               <input
                 type="password"
                 value={password}
@@ -110,7 +123,9 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Konfirmasi Password
+              </label>
               <input
                 type="password"
                 value={confirmPassword}
@@ -125,7 +140,9 @@ export default function RegisterPage() {
                 type="submit"
                 disabled={isLoading}
                 className={`w-full py-2 px-4 rounded-md text-white font-semibold transition ${
-                  isLoading ? "bg-orange-400" : "bg-orange-500 hover:bg-orange-600"
+                  isLoading
+                    ? "bg-orange-400"
+                    : "bg-orange-500 hover:bg-orange-600"
                 }`}
               >
                 {isLoading ? "Memproses..." : "Daftar"}
@@ -135,7 +152,10 @@ export default function RegisterPage() {
 
           <div className="mt-4 text-center text-sm">
             <span className="text-gray-500">Sudah punya akun? </span>
-            <Link href="/auth/login" className="text-orange-500 hover:underline">
+            <Link
+              href="/auth/login"
+              className="text-orange-500 hover:underline"
+            >
               Login
             </Link>
           </div>
