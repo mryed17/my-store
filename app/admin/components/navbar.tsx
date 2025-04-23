@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 
 export default function Navbar() {
   const pathname = usePathname();
-  
+
   const navItems = [
     { name: "Dashboard", path: "/admin/dashboard" },
     { name: "Produk", path: "/admin/products" },
@@ -22,7 +22,7 @@ export default function Navbar() {
               MY-STORE Admin
             </Link>
           </div>
-          
+
           <div className="flex space-x-4">
             {navItems.map((item) => (
               <Link
