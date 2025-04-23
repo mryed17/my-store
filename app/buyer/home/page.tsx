@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export default function Home() {
   const [currentBanner, setCurrentBanner] = useState(0);
@@ -69,12 +68,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative bg-orange-400 text-white py-16">
         <div className="container mx-auto px-4 md:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-2xl"
-          >
+          <div className="max-w-2xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">
               Selamat Datang di ToTong
             </h1>
@@ -84,15 +78,11 @@ export default function Home() {
               dan menyenangkan.
             </p>
             <Link href="./shop">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-white text-orange-500 px-6 py-3 rounded-lg font-medium text-lg"
-              >
+              <button className="bg-white text-orange-500 px-6 py-3 rounded-lg font-medium text-lg">
                 Mulai Belanja
-              </motion.button>
+              </button>
             </Link>
-          </motion.div>
+          </div>
         </div>
         <div className="absolute right-0 bottom-0 opacity-20 md:opacity-30">
           <svg width="300" height="300" viewBox="0 0 200 200">
@@ -111,15 +101,13 @@ export default function Home() {
           </h2>
           <div className="relative h-64 md:h-80 overflow-hidden rounded-xl shadow-lg">
             {banners.map((banner, index) => (
-              <motion.div
+              <div
                 key={index}
-                className="absolute inset-0 flex items-center"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: index === currentBanner ? 1 : 0 }}
-                transition={{ duration: 0.8 }}
+                className={`absolute inset-0 transition-opacity duration-700 ease-in-out ${
+                  index === currentBanner ? "opacity-100" : "opacity-0"
+                }`}
               >
                 <div className="w-full h-full relative">
-                  <div className="absolute inset-0" />
                   <div className="relative z-20 text-white p-8 md:p-12 max-w-md">
                     <h3 className="text-2xl md:text-3xl font-bold mb-3">
                       {banner.title}
@@ -138,9 +126,8 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-
             <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-2 z-30">
               {banners.map((_, index) => (
                 <button
@@ -156,7 +143,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Products Section */}
+      {/* Featured Products */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-orange-500 text-3xl font-bold text-center mb-2">
@@ -166,14 +153,10 @@ export default function Home() {
             Pilihan terbaik dari berbagai kategori
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {featuredProducts.map((product, index) => (
-              <motion.div
+            {featuredProducts.map((product) => (
+              <div
                 key={product.id}
-                className="bg-white rounded-lg shadow-md overflow-hidden"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                whileHover={{ y: -10, transition: { duration: 0.2 } }}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:-translate-y-1 transition"
               >
                 <div className="relative h-48 w-full bg-gray-200">
                   <Image
@@ -192,35 +175,27 @@ export default function Home() {
                     {product.price}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
           <div className="text-center mt-12">
             <Link href="./shop">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-orange-400 text-white px-8 py-3 rounded-lg font-medium text-lg hover:bg-orange-500 transition"
-              >
+              <button className="bg-orange-400 text-white px-8 py-3 rounded-lg font-medium text-lg hover:bg-orange-500 transition">
                 Lihat Semua Produk
-              </motion.button>
+              </button>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Store Benefits Section */}
+      {/* Store Benefits */}
       <section className="py-16 bg-orange-50">
         <div className="container mx-auto px-4 md:px-8">
           <h2 className="text-orange-500 text-3xl font-bold text-center mb-12">
             Kenapa Belanja di ToTong?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Keuntungan 1 */}
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow text-center"
-              whileHover={{ y: -5 }}
-            >
+            <div className="bg-white p-6 rounded-lg shadow text-center hover:-translate-y-1 transition">
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="h-8 w-8"
@@ -240,13 +215,8 @@ export default function Home() {
               <p className="text-gray-600">
                 Barang sampai dalam waktu 1-3 hari kerja untuk seluruh Indonesia
               </p>
-            </motion.div>
-
-            {/* Keuntungan 2 */}
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow text-center"
-              whileHover={{ y: -5 }}
-            >
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow text-center hover:-translate-y-1 transition">
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="h-8 w-8"
@@ -266,13 +236,8 @@ export default function Home() {
               <p className="text-gray-600">
                 Semua produk kami melalui proses kontrol kualitas yang ketat
               </p>
-            </motion.div>
-
-            {/* Keuntungan 3 */}
-            <motion.div
-              className="bg-white p-6 rounded-lg shadow text-center"
-              whileHover={{ y: -5 }}
-            >
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow text-center hover:-translate-y-1 transition">
               <div className="w-16 h-16 bg-orange-100 text-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
                   className="h-8 w-8"
@@ -293,7 +258,7 @@ export default function Home() {
                 Berbagai metode pembayaran dengan keamanan bertaraf
                 internasional
               </p>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
