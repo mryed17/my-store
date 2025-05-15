@@ -1,9 +1,12 @@
-// app/layout.tsx
+import type { Metadata } from "next";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
 
-export const metadata = {
-  title: "My Store",
-  description: "Toko online keren",
+const font = Urbanist({ subsets: ["latin"] });
+
+export const metadata: Metadata = {
+  title: "Toko Online",
+  description: "Toko Online",
 };
 
 export default function RootLayout({
@@ -13,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className={font.className}>
         {children}
       </body>
     </html>
