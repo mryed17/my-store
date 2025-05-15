@@ -9,7 +9,6 @@ export default function EditProductPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const productId = searchParams.get("id");
-  
   const [loading, setLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
