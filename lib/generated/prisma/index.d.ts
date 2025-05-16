@@ -13,7 +13,16 @@ import $Result = runtime.Types.Result
 export type PrismaPromise<T> = $Public.PrismaPromise<T>
 
 
-
+/**
+ * Model Produk
+ * 
+ */
+export type Produk = $Result.DefaultSelection<Prisma.$ProdukPayload>
+/**
+ * Model Transaksi
+ * 
+ */
+export type Transaksi = $Result.DefaultSelection<Prisma.$TransaksiPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -22,8 +31,8 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Produks
+ * const produks = await prisma.produk.findMany()
  * ```
  *
  *
@@ -43,8 +52,8 @@ export class PrismaClient<
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Users
-   * const users = await prisma.user.findMany()
+   * // Fetch zero or more Produks
+   * const produks = await prisma.produk.findMany()
    * ```
    *
    *
@@ -140,7 +149,25 @@ export class PrismaClient<
     extArgs: ExtArgs
   }>>
 
-    
+      /**
+   * `prisma.produk`: Exposes CRUD operations for the **Produk** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Produks
+    * const produks = await prisma.produk.findMany()
+    * ```
+    */
+  get produk(): Prisma.ProdukDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.transaksi`: Exposes CRUD operations for the **Transaksi** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Transaksis
+    * const transaksis = await prisma.transaksi.findMany()
+    * ```
+    */
+  get transaksi(): Prisma.TransaksiDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -581,7 +608,8 @@ export namespace Prisma {
 
 
   export const ModelName: {
-
+    Produk: 'Produk',
+    Transaksi: 'Transaksi'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -600,10 +628,159 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: never
+      modelProps: "produk" | "transaksi"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
-    model: {}
+    model: {
+      Produk: {
+        payload: Prisma.$ProdukPayload<ExtArgs>
+        fields: Prisma.ProdukFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ProdukFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ProdukFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          findFirst: {
+            args: Prisma.ProdukFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ProdukFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          findMany: {
+            args: Prisma.ProdukFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>[]
+          }
+          create: {
+            args: Prisma.ProdukCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          createMany: {
+            args: Prisma.ProdukCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ProdukCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>[]
+          }
+          delete: {
+            args: Prisma.ProdukDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          update: {
+            args: Prisma.ProdukUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          deleteMany: {
+            args: Prisma.ProdukDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ProdukUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ProdukUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>[]
+          }
+          upsert: {
+            args: Prisma.ProdukUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ProdukPayload>
+          }
+          aggregate: {
+            args: Prisma.ProdukAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateProduk>
+          }
+          groupBy: {
+            args: Prisma.ProdukGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ProdukGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ProdukCountArgs<ExtArgs>
+            result: $Utils.Optional<ProdukCountAggregateOutputType> | number
+          }
+        }
+      }
+      Transaksi: {
+        payload: Prisma.$TransaksiPayload<ExtArgs>
+        fields: Prisma.TransaksiFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.TransaksiFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.TransaksiFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          findFirst: {
+            args: Prisma.TransaksiFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.TransaksiFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          findMany: {
+            args: Prisma.TransaksiFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>[]
+          }
+          create: {
+            args: Prisma.TransaksiCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          createMany: {
+            args: Prisma.TransaksiCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.TransaksiCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>[]
+          }
+          delete: {
+            args: Prisma.TransaksiDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          update: {
+            args: Prisma.TransaksiUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          deleteMany: {
+            args: Prisma.TransaksiDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.TransaksiUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.TransaksiUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>[]
+          }
+          upsert: {
+            args: Prisma.TransaksiUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$TransaksiPayload>
+          }
+          aggregate: {
+            args: Prisma.TransaksiAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateTransaksi>
+          }
+          groupBy: {
+            args: Prisma.TransaksiGroupByArgs<ExtArgs>
+            result: $Utils.Optional<TransaksiGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.TransaksiCountArgs<ExtArgs>
+            result: $Utils.Optional<TransaksiCountAggregateOutputType> | number
+          }
+        }
+      }
+    }
   } & {
     other: {
       payload: any
@@ -686,7 +863,10 @@ export namespace Prisma {
      */
     omit?: Prisma.GlobalOmitConfig
   }
-  export type GlobalOmitConfig = {}
+  export type GlobalOmitConfig = {
+    produk?: ProdukOmit
+    transaksi?: TransaksiOmit
+  }
 
   /* Types for Logging */
   export type LogLevel = 'info' | 'query' | 'warn' | 'error'
@@ -775,10 +955,2304 @@ export namespace Prisma {
    */
 
 
+  /**
+   * Count Type ProdukCountOutputType
+   */
+
+  export type ProdukCountOutputType = {
+    transaksi: number
+  }
+
+  export type ProdukCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaksi?: boolean | ProdukCountOutputTypeCountTransaksiArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * ProdukCountOutputType without action
+   */
+  export type ProdukCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the ProdukCountOutputType
+     */
+    select?: ProdukCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ProdukCountOutputType without action
+   */
+  export type ProdukCountOutputTypeCountTransaksiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransaksiWhereInput
+  }
+
 
   /**
    * Models
    */
+
+  /**
+   * Model Produk
+   */
+
+  export type AggregateProduk = {
+    _count: ProdukCountAggregateOutputType | null
+    _avg: ProdukAvgAggregateOutputType | null
+    _sum: ProdukSumAggregateOutputType | null
+    _min: ProdukMinAggregateOutputType | null
+    _max: ProdukMaxAggregateOutputType | null
+  }
+
+  export type ProdukAvgAggregateOutputType = {
+    harga: number | null
+    stok: number | null
+  }
+
+  export type ProdukSumAggregateOutputType = {
+    harga: number | null
+    stok: number | null
+  }
+
+  export type ProdukMinAggregateOutputType = {
+    id_produk: string | null
+    nama_produk: string | null
+    harga: number | null
+    stok: number | null
+    foto: string | null
+    deskripsi: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProdukMaxAggregateOutputType = {
+    id_produk: string | null
+    nama_produk: string | null
+    harga: number | null
+    stok: number | null
+    foto: string | null
+    deskripsi: string | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ProdukCountAggregateOutputType = {
+    id_produk: number
+    nama_produk: number
+    harga: number
+    stok: number
+    foto: number
+    deskripsi: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ProdukAvgAggregateInputType = {
+    harga?: true
+    stok?: true
+  }
+
+  export type ProdukSumAggregateInputType = {
+    harga?: true
+    stok?: true
+  }
+
+  export type ProdukMinAggregateInputType = {
+    id_produk?: true
+    nama_produk?: true
+    harga?: true
+    stok?: true
+    foto?: true
+    deskripsi?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProdukMaxAggregateInputType = {
+    id_produk?: true
+    nama_produk?: true
+    harga?: true
+    stok?: true
+    foto?: true
+    deskripsi?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ProdukCountAggregateInputType = {
+    id_produk?: true
+    nama_produk?: true
+    harga?: true
+    stok?: true
+    foto?: true
+    deskripsi?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ProdukAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Produk to aggregate.
+     */
+    where?: ProdukWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Produks to fetch.
+     */
+    orderBy?: ProdukOrderByWithRelationInput | ProdukOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ProdukWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Produks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Produks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Produks
+    **/
+    _count?: true | ProdukCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ProdukAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ProdukSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ProdukMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ProdukMaxAggregateInputType
+  }
+
+  export type GetProdukAggregateType<T extends ProdukAggregateArgs> = {
+        [P in keyof T & keyof AggregateProduk]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateProduk[P]>
+      : GetScalarType<T[P], AggregateProduk[P]>
+  }
+
+
+
+
+  export type ProdukGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ProdukWhereInput
+    orderBy?: ProdukOrderByWithAggregationInput | ProdukOrderByWithAggregationInput[]
+    by: ProdukScalarFieldEnum[] | ProdukScalarFieldEnum
+    having?: ProdukScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ProdukCountAggregateInputType | true
+    _avg?: ProdukAvgAggregateInputType
+    _sum?: ProdukSumAggregateInputType
+    _min?: ProdukMinAggregateInputType
+    _max?: ProdukMaxAggregateInputType
+  }
+
+  export type ProdukGroupByOutputType = {
+    id_produk: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto: string | null
+    deskripsi: string | null
+    createdAt: Date
+    updatedAt: Date
+    _count: ProdukCountAggregateOutputType | null
+    _avg: ProdukAvgAggregateOutputType | null
+    _sum: ProdukSumAggregateOutputType | null
+    _min: ProdukMinAggregateOutputType | null
+    _max: ProdukMaxAggregateOutputType | null
+  }
+
+  type GetProdukGroupByPayload<T extends ProdukGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ProdukGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ProdukGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ProdukGroupByOutputType[P]>
+            : GetScalarType<T[P], ProdukGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ProdukSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_produk?: boolean
+    nama_produk?: boolean
+    harga?: boolean
+    stok?: boolean
+    foto?: boolean
+    deskripsi?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    transaksi?: boolean | Produk$transaksiArgs<ExtArgs>
+    _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["produk"]>
+
+  export type ProdukSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_produk?: boolean
+    nama_produk?: boolean
+    harga?: boolean
+    stok?: boolean
+    foto?: boolean
+    deskripsi?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["produk"]>
+
+  export type ProdukSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_produk?: boolean
+    nama_produk?: boolean
+    harga?: boolean
+    stok?: boolean
+    foto?: boolean
+    deskripsi?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["produk"]>
+
+  export type ProdukSelectScalar = {
+    id_produk?: boolean
+    nama_produk?: boolean
+    harga?: boolean
+    stok?: boolean
+    foto?: boolean
+    deskripsi?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ProdukOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_produk" | "nama_produk" | "harga" | "stok" | "foto" | "deskripsi" | "createdAt" | "updatedAt", ExtArgs["result"]["produk"]>
+  export type ProdukInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    transaksi?: boolean | Produk$transaksiArgs<ExtArgs>
+    _count?: boolean | ProdukCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type ProdukIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type ProdukIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $ProdukPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Produk"
+    objects: {
+      transaksi: Prisma.$TransaksiPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_produk: string
+      nama_produk: string
+      harga: number
+      stok: number
+      foto: string | null
+      deskripsi: string | null
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["produk"]>
+    composites: {}
+  }
+
+  type ProdukGetPayload<S extends boolean | null | undefined | ProdukDefaultArgs> = $Result.GetResult<Prisma.$ProdukPayload, S>
+
+  type ProdukCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ProdukFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ProdukCountAggregateInputType | true
+    }
+
+  export interface ProdukDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Produk'], meta: { name: 'Produk' } }
+    /**
+     * Find zero or one Produk that matches the filter.
+     * @param {ProdukFindUniqueArgs} args - Arguments to find a Produk
+     * @example
+     * // Get one Produk
+     * const produk = await prisma.produk.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ProdukFindUniqueArgs>(args: SelectSubset<T, ProdukFindUniqueArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Produk that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ProdukFindUniqueOrThrowArgs} args - Arguments to find a Produk
+     * @example
+     * // Get one Produk
+     * const produk = await prisma.produk.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ProdukFindUniqueOrThrowArgs>(args: SelectSubset<T, ProdukFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Produk that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukFindFirstArgs} args - Arguments to find a Produk
+     * @example
+     * // Get one Produk
+     * const produk = await prisma.produk.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ProdukFindFirstArgs>(args?: SelectSubset<T, ProdukFindFirstArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Produk that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukFindFirstOrThrowArgs} args - Arguments to find a Produk
+     * @example
+     * // Get one Produk
+     * const produk = await prisma.produk.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ProdukFindFirstOrThrowArgs>(args?: SelectSubset<T, ProdukFindFirstOrThrowArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Produks that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Produks
+     * const produks = await prisma.produk.findMany()
+     * 
+     * // Get first 10 Produks
+     * const produks = await prisma.produk.findMany({ take: 10 })
+     * 
+     * // Only select the `id_produk`
+     * const produkWithId_produkOnly = await prisma.produk.findMany({ select: { id_produk: true } })
+     * 
+     */
+    findMany<T extends ProdukFindManyArgs>(args?: SelectSubset<T, ProdukFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Produk.
+     * @param {ProdukCreateArgs} args - Arguments to create a Produk.
+     * @example
+     * // Create one Produk
+     * const Produk = await prisma.produk.create({
+     *   data: {
+     *     // ... data to create a Produk
+     *   }
+     * })
+     * 
+     */
+    create<T extends ProdukCreateArgs>(args: SelectSubset<T, ProdukCreateArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Produks.
+     * @param {ProdukCreateManyArgs} args - Arguments to create many Produks.
+     * @example
+     * // Create many Produks
+     * const produk = await prisma.produk.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ProdukCreateManyArgs>(args?: SelectSubset<T, ProdukCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Produks and returns the data saved in the database.
+     * @param {ProdukCreateManyAndReturnArgs} args - Arguments to create many Produks.
+     * @example
+     * // Create many Produks
+     * const produk = await prisma.produk.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Produks and only return the `id_produk`
+     * const produkWithId_produkOnly = await prisma.produk.createManyAndReturn({
+     *   select: { id_produk: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ProdukCreateManyAndReturnArgs>(args?: SelectSubset<T, ProdukCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Produk.
+     * @param {ProdukDeleteArgs} args - Arguments to delete one Produk.
+     * @example
+     * // Delete one Produk
+     * const Produk = await prisma.produk.delete({
+     *   where: {
+     *     // ... filter to delete one Produk
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ProdukDeleteArgs>(args: SelectSubset<T, ProdukDeleteArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Produk.
+     * @param {ProdukUpdateArgs} args - Arguments to update one Produk.
+     * @example
+     * // Update one Produk
+     * const produk = await prisma.produk.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ProdukUpdateArgs>(args: SelectSubset<T, ProdukUpdateArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Produks.
+     * @param {ProdukDeleteManyArgs} args - Arguments to filter Produks to delete.
+     * @example
+     * // Delete a few Produks
+     * const { count } = await prisma.produk.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ProdukDeleteManyArgs>(args?: SelectSubset<T, ProdukDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Produks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Produks
+     * const produk = await prisma.produk.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ProdukUpdateManyArgs>(args: SelectSubset<T, ProdukUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Produks and returns the data updated in the database.
+     * @param {ProdukUpdateManyAndReturnArgs} args - Arguments to update many Produks.
+     * @example
+     * // Update many Produks
+     * const produk = await prisma.produk.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Produks and only return the `id_produk`
+     * const produkWithId_produkOnly = await prisma.produk.updateManyAndReturn({
+     *   select: { id_produk: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ProdukUpdateManyAndReturnArgs>(args: SelectSubset<T, ProdukUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Produk.
+     * @param {ProdukUpsertArgs} args - Arguments to update or create a Produk.
+     * @example
+     * // Update or create a Produk
+     * const produk = await prisma.produk.upsert({
+     *   create: {
+     *     // ... data to create a Produk
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Produk we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ProdukUpsertArgs>(args: SelectSubset<T, ProdukUpsertArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Produks.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukCountArgs} args - Arguments to filter Produks to count.
+     * @example
+     * // Count the number of Produks
+     * const count = await prisma.produk.count({
+     *   where: {
+     *     // ... the filter for the Produks we want to count
+     *   }
+     * })
+    **/
+    count<T extends ProdukCountArgs>(
+      args?: Subset<T, ProdukCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ProdukCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Produk.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ProdukAggregateArgs>(args: Subset<T, ProdukAggregateArgs>): Prisma.PrismaPromise<GetProdukAggregateType<T>>
+
+    /**
+     * Group by Produk.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ProdukGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ProdukGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ProdukGroupByArgs['orderBy'] }
+        : { orderBy?: ProdukGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ProdukGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetProdukGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Produk model
+   */
+  readonly fields: ProdukFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Produk.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ProdukClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    transaksi<T extends Produk$transaksiArgs<ExtArgs> = {}>(args?: Subset<T, Produk$transaksiArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Produk model
+   */
+  interface ProdukFieldRefs {
+    readonly id_produk: FieldRef<"Produk", 'String'>
+    readonly nama_produk: FieldRef<"Produk", 'String'>
+    readonly harga: FieldRef<"Produk", 'Float'>
+    readonly stok: FieldRef<"Produk", 'Int'>
+    readonly foto: FieldRef<"Produk", 'String'>
+    readonly deskripsi: FieldRef<"Produk", 'String'>
+    readonly createdAt: FieldRef<"Produk", 'DateTime'>
+    readonly updatedAt: FieldRef<"Produk", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Produk findUnique
+   */
+  export type ProdukFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter, which Produk to fetch.
+     */
+    where: ProdukWhereUniqueInput
+  }
+
+  /**
+   * Produk findUniqueOrThrow
+   */
+  export type ProdukFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter, which Produk to fetch.
+     */
+    where: ProdukWhereUniqueInput
+  }
+
+  /**
+   * Produk findFirst
+   */
+  export type ProdukFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter, which Produk to fetch.
+     */
+    where?: ProdukWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Produks to fetch.
+     */
+    orderBy?: ProdukOrderByWithRelationInput | ProdukOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Produks.
+     */
+    cursor?: ProdukWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Produks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Produks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Produks.
+     */
+    distinct?: ProdukScalarFieldEnum | ProdukScalarFieldEnum[]
+  }
+
+  /**
+   * Produk findFirstOrThrow
+   */
+  export type ProdukFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter, which Produk to fetch.
+     */
+    where?: ProdukWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Produks to fetch.
+     */
+    orderBy?: ProdukOrderByWithRelationInput | ProdukOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Produks.
+     */
+    cursor?: ProdukWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Produks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Produks.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Produks.
+     */
+    distinct?: ProdukScalarFieldEnum | ProdukScalarFieldEnum[]
+  }
+
+  /**
+   * Produk findMany
+   */
+  export type ProdukFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter, which Produks to fetch.
+     */
+    where?: ProdukWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Produks to fetch.
+     */
+    orderBy?: ProdukOrderByWithRelationInput | ProdukOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Produks.
+     */
+    cursor?: ProdukWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Produks from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Produks.
+     */
+    skip?: number
+    distinct?: ProdukScalarFieldEnum | ProdukScalarFieldEnum[]
+  }
+
+  /**
+   * Produk create
+   */
+  export type ProdukCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Produk.
+     */
+    data: XOR<ProdukCreateInput, ProdukUncheckedCreateInput>
+  }
+
+  /**
+   * Produk createMany
+   */
+  export type ProdukCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Produks.
+     */
+    data: ProdukCreateManyInput | ProdukCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Produk createManyAndReturn
+   */
+  export type ProdukCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * The data used to create many Produks.
+     */
+    data: ProdukCreateManyInput | ProdukCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Produk update
+   */
+  export type ProdukUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Produk.
+     */
+    data: XOR<ProdukUpdateInput, ProdukUncheckedUpdateInput>
+    /**
+     * Choose, which Produk to update.
+     */
+    where: ProdukWhereUniqueInput
+  }
+
+  /**
+   * Produk updateMany
+   */
+  export type ProdukUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Produks.
+     */
+    data: XOR<ProdukUpdateManyMutationInput, ProdukUncheckedUpdateManyInput>
+    /**
+     * Filter which Produks to update
+     */
+    where?: ProdukWhereInput
+    /**
+     * Limit how many Produks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Produk updateManyAndReturn
+   */
+  export type ProdukUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * The data used to update Produks.
+     */
+    data: XOR<ProdukUpdateManyMutationInput, ProdukUncheckedUpdateManyInput>
+    /**
+     * Filter which Produks to update
+     */
+    where?: ProdukWhereInput
+    /**
+     * Limit how many Produks to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Produk upsert
+   */
+  export type ProdukUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Produk to update in case it exists.
+     */
+    where: ProdukWhereUniqueInput
+    /**
+     * In case the Produk found by the `where` argument doesn't exist, create a new Produk with this data.
+     */
+    create: XOR<ProdukCreateInput, ProdukUncheckedCreateInput>
+    /**
+     * In case the Produk was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ProdukUpdateInput, ProdukUncheckedUpdateInput>
+  }
+
+  /**
+   * Produk delete
+   */
+  export type ProdukDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+    /**
+     * Filter which Produk to delete.
+     */
+    where: ProdukWhereUniqueInput
+  }
+
+  /**
+   * Produk deleteMany
+   */
+  export type ProdukDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Produks to delete
+     */
+    where?: ProdukWhereInput
+    /**
+     * Limit how many Produks to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Produk.transaksi
+   */
+  export type Produk$transaksiArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    where?: TransaksiWhereInput
+    orderBy?: TransaksiOrderByWithRelationInput | TransaksiOrderByWithRelationInput[]
+    cursor?: TransaksiWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: TransaksiScalarFieldEnum | TransaksiScalarFieldEnum[]
+  }
+
+  /**
+   * Produk without action
+   */
+  export type ProdukDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Produk
+     */
+    select?: ProdukSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Produk
+     */
+    omit?: ProdukOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: ProdukInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Transaksi
+   */
+
+  export type AggregateTransaksi = {
+    _count: TransaksiCountAggregateOutputType | null
+    _avg: TransaksiAvgAggregateOutputType | null
+    _sum: TransaksiSumAggregateOutputType | null
+    _min: TransaksiMinAggregateOutputType | null
+    _max: TransaksiMaxAggregateOutputType | null
+  }
+
+  export type TransaksiAvgAggregateOutputType = {
+    total_harga: number | null
+  }
+
+  export type TransaksiSumAggregateOutputType = {
+    total_harga: number | null
+  }
+
+  export type TransaksiMinAggregateOutputType = {
+    id_transaksi: string | null
+    id_produk: string | null
+    nama_pembeli: string | null
+    tanggal: Date | null
+    total_harga: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TransaksiMaxAggregateOutputType = {
+    id_transaksi: string | null
+    id_produk: string | null
+    nama_pembeli: string | null
+    tanggal: Date | null
+    total_harga: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type TransaksiCountAggregateOutputType = {
+    id_transaksi: number
+    id_produk: number
+    nama_pembeli: number
+    tanggal: number
+    total_harga: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type TransaksiAvgAggregateInputType = {
+    total_harga?: true
+  }
+
+  export type TransaksiSumAggregateInputType = {
+    total_harga?: true
+  }
+
+  export type TransaksiMinAggregateInputType = {
+    id_transaksi?: true
+    id_produk?: true
+    nama_pembeli?: true
+    tanggal?: true
+    total_harga?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TransaksiMaxAggregateInputType = {
+    id_transaksi?: true
+    id_produk?: true
+    nama_pembeli?: true
+    tanggal?: true
+    total_harga?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type TransaksiCountAggregateInputType = {
+    id_transaksi?: true
+    id_produk?: true
+    nama_pembeli?: true
+    tanggal?: true
+    total_harga?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type TransaksiAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transaksi to aggregate.
+     */
+    where?: TransaksiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transaksis to fetch.
+     */
+    orderBy?: TransaksiOrderByWithRelationInput | TransaksiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: TransaksiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transaksis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transaksis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Transaksis
+    **/
+    _count?: true | TransaksiCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: TransaksiAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: TransaksiSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: TransaksiMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: TransaksiMaxAggregateInputType
+  }
+
+  export type GetTransaksiAggregateType<T extends TransaksiAggregateArgs> = {
+        [P in keyof T & keyof AggregateTransaksi]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateTransaksi[P]>
+      : GetScalarType<T[P], AggregateTransaksi[P]>
+  }
+
+
+
+
+  export type TransaksiGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: TransaksiWhereInput
+    orderBy?: TransaksiOrderByWithAggregationInput | TransaksiOrderByWithAggregationInput[]
+    by: TransaksiScalarFieldEnum[] | TransaksiScalarFieldEnum
+    having?: TransaksiScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: TransaksiCountAggregateInputType | true
+    _avg?: TransaksiAvgAggregateInputType
+    _sum?: TransaksiSumAggregateInputType
+    _min?: TransaksiMinAggregateInputType
+    _max?: TransaksiMaxAggregateInputType
+  }
+
+  export type TransaksiGroupByOutputType = {
+    id_transaksi: string
+    id_produk: string
+    nama_pembeli: string
+    tanggal: Date
+    total_harga: number
+    createdAt: Date
+    updatedAt: Date
+    _count: TransaksiCountAggregateOutputType | null
+    _avg: TransaksiAvgAggregateOutputType | null
+    _sum: TransaksiSumAggregateOutputType | null
+    _min: TransaksiMinAggregateOutputType | null
+    _max: TransaksiMaxAggregateOutputType | null
+  }
+
+  type GetTransaksiGroupByPayload<T extends TransaksiGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<TransaksiGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof TransaksiGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], TransaksiGroupByOutputType[P]>
+            : GetScalarType<T[P], TransaksiGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type TransaksiSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_transaksi?: boolean
+    id_produk?: boolean
+    nama_pembeli?: boolean
+    tanggal?: boolean
+    total_harga?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transaksi"]>
+
+  export type TransaksiSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_transaksi?: boolean
+    id_produk?: boolean
+    nama_pembeli?: boolean
+    tanggal?: boolean
+    total_harga?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transaksi"]>
+
+  export type TransaksiSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id_transaksi?: boolean
+    id_produk?: boolean
+    nama_pembeli?: boolean
+    tanggal?: boolean
+    total_harga?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["transaksi"]>
+
+  export type TransaksiSelectScalar = {
+    id_transaksi?: boolean
+    id_produk?: boolean
+    nama_pembeli?: boolean
+    tanggal?: boolean
+    total_harga?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type TransaksiOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_transaksi" | "id_produk" | "nama_pembeli" | "tanggal" | "total_harga" | "createdAt" | "updatedAt", ExtArgs["result"]["transaksi"]>
+  export type TransaksiInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+  export type TransaksiIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+  export type TransaksiIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    produk?: boolean | ProdukDefaultArgs<ExtArgs>
+  }
+
+  export type $TransaksiPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Transaksi"
+    objects: {
+      produk: Prisma.$ProdukPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id_transaksi: string
+      id_produk: string
+      nama_pembeli: string
+      tanggal: Date
+      total_harga: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["transaksi"]>
+    composites: {}
+  }
+
+  type TransaksiGetPayload<S extends boolean | null | undefined | TransaksiDefaultArgs> = $Result.GetResult<Prisma.$TransaksiPayload, S>
+
+  type TransaksiCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<TransaksiFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: TransaksiCountAggregateInputType | true
+    }
+
+  export interface TransaksiDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Transaksi'], meta: { name: 'Transaksi' } }
+    /**
+     * Find zero or one Transaksi that matches the filter.
+     * @param {TransaksiFindUniqueArgs} args - Arguments to find a Transaksi
+     * @example
+     * // Get one Transaksi
+     * const transaksi = await prisma.transaksi.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends TransaksiFindUniqueArgs>(args: SelectSubset<T, TransaksiFindUniqueArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Transaksi that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {TransaksiFindUniqueOrThrowArgs} args - Arguments to find a Transaksi
+     * @example
+     * // Get one Transaksi
+     * const transaksi = await prisma.transaksi.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends TransaksiFindUniqueOrThrowArgs>(args: SelectSubset<T, TransaksiFindUniqueOrThrowArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Transaksi that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiFindFirstArgs} args - Arguments to find a Transaksi
+     * @example
+     * // Get one Transaksi
+     * const transaksi = await prisma.transaksi.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends TransaksiFindFirstArgs>(args?: SelectSubset<T, TransaksiFindFirstArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Transaksi that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiFindFirstOrThrowArgs} args - Arguments to find a Transaksi
+     * @example
+     * // Get one Transaksi
+     * const transaksi = await prisma.transaksi.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends TransaksiFindFirstOrThrowArgs>(args?: SelectSubset<T, TransaksiFindFirstOrThrowArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Transaksis that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Transaksis
+     * const transaksis = await prisma.transaksi.findMany()
+     * 
+     * // Get first 10 Transaksis
+     * const transaksis = await prisma.transaksi.findMany({ take: 10 })
+     * 
+     * // Only select the `id_transaksi`
+     * const transaksiWithId_transaksiOnly = await prisma.transaksi.findMany({ select: { id_transaksi: true } })
+     * 
+     */
+    findMany<T extends TransaksiFindManyArgs>(args?: SelectSubset<T, TransaksiFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Transaksi.
+     * @param {TransaksiCreateArgs} args - Arguments to create a Transaksi.
+     * @example
+     * // Create one Transaksi
+     * const Transaksi = await prisma.transaksi.create({
+     *   data: {
+     *     // ... data to create a Transaksi
+     *   }
+     * })
+     * 
+     */
+    create<T extends TransaksiCreateArgs>(args: SelectSubset<T, TransaksiCreateArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Transaksis.
+     * @param {TransaksiCreateManyArgs} args - Arguments to create many Transaksis.
+     * @example
+     * // Create many Transaksis
+     * const transaksi = await prisma.transaksi.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends TransaksiCreateManyArgs>(args?: SelectSubset<T, TransaksiCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Transaksis and returns the data saved in the database.
+     * @param {TransaksiCreateManyAndReturnArgs} args - Arguments to create many Transaksis.
+     * @example
+     * // Create many Transaksis
+     * const transaksi = await prisma.transaksi.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Transaksis and only return the `id_transaksi`
+     * const transaksiWithId_transaksiOnly = await prisma.transaksi.createManyAndReturn({
+     *   select: { id_transaksi: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends TransaksiCreateManyAndReturnArgs>(args?: SelectSubset<T, TransaksiCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Transaksi.
+     * @param {TransaksiDeleteArgs} args - Arguments to delete one Transaksi.
+     * @example
+     * // Delete one Transaksi
+     * const Transaksi = await prisma.transaksi.delete({
+     *   where: {
+     *     // ... filter to delete one Transaksi
+     *   }
+     * })
+     * 
+     */
+    delete<T extends TransaksiDeleteArgs>(args: SelectSubset<T, TransaksiDeleteArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Transaksi.
+     * @param {TransaksiUpdateArgs} args - Arguments to update one Transaksi.
+     * @example
+     * // Update one Transaksi
+     * const transaksi = await prisma.transaksi.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends TransaksiUpdateArgs>(args: SelectSubset<T, TransaksiUpdateArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Transaksis.
+     * @param {TransaksiDeleteManyArgs} args - Arguments to filter Transaksis to delete.
+     * @example
+     * // Delete a few Transaksis
+     * const { count } = await prisma.transaksi.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends TransaksiDeleteManyArgs>(args?: SelectSubset<T, TransaksiDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transaksis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Transaksis
+     * const transaksi = await prisma.transaksi.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends TransaksiUpdateManyArgs>(args: SelectSubset<T, TransaksiUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Transaksis and returns the data updated in the database.
+     * @param {TransaksiUpdateManyAndReturnArgs} args - Arguments to update many Transaksis.
+     * @example
+     * // Update many Transaksis
+     * const transaksi = await prisma.transaksi.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Transaksis and only return the `id_transaksi`
+     * const transaksiWithId_transaksiOnly = await prisma.transaksi.updateManyAndReturn({
+     *   select: { id_transaksi: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends TransaksiUpdateManyAndReturnArgs>(args: SelectSubset<T, TransaksiUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Transaksi.
+     * @param {TransaksiUpsertArgs} args - Arguments to update or create a Transaksi.
+     * @example
+     * // Update or create a Transaksi
+     * const transaksi = await prisma.transaksi.upsert({
+     *   create: {
+     *     // ... data to create a Transaksi
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Transaksi we want to update
+     *   }
+     * })
+     */
+    upsert<T extends TransaksiUpsertArgs>(args: SelectSubset<T, TransaksiUpsertArgs<ExtArgs>>): Prisma__TransaksiClient<$Result.GetResult<Prisma.$TransaksiPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Transaksis.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiCountArgs} args - Arguments to filter Transaksis to count.
+     * @example
+     * // Count the number of Transaksis
+     * const count = await prisma.transaksi.count({
+     *   where: {
+     *     // ... the filter for the Transaksis we want to count
+     *   }
+     * })
+    **/
+    count<T extends TransaksiCountArgs>(
+      args?: Subset<T, TransaksiCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], TransaksiCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Transaksi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends TransaksiAggregateArgs>(args: Subset<T, TransaksiAggregateArgs>): Prisma.PrismaPromise<GetTransaksiAggregateType<T>>
+
+    /**
+     * Group by Transaksi.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {TransaksiGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends TransaksiGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: TransaksiGroupByArgs['orderBy'] }
+        : { orderBy?: TransaksiGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, TransaksiGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetTransaksiGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Transaksi model
+   */
+  readonly fields: TransaksiFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Transaksi.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__TransaksiClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    produk<T extends ProdukDefaultArgs<ExtArgs> = {}>(args?: Subset<T, ProdukDefaultArgs<ExtArgs>>): Prisma__ProdukClient<$Result.GetResult<Prisma.$ProdukPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Transaksi model
+   */
+  interface TransaksiFieldRefs {
+    readonly id_transaksi: FieldRef<"Transaksi", 'String'>
+    readonly id_produk: FieldRef<"Transaksi", 'String'>
+    readonly nama_pembeli: FieldRef<"Transaksi", 'String'>
+    readonly tanggal: FieldRef<"Transaksi", 'DateTime'>
+    readonly total_harga: FieldRef<"Transaksi", 'Float'>
+    readonly createdAt: FieldRef<"Transaksi", 'DateTime'>
+    readonly updatedAt: FieldRef<"Transaksi", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Transaksi findUnique
+   */
+  export type TransaksiFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaksi to fetch.
+     */
+    where: TransaksiWhereUniqueInput
+  }
+
+  /**
+   * Transaksi findUniqueOrThrow
+   */
+  export type TransaksiFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaksi to fetch.
+     */
+    where: TransaksiWhereUniqueInput
+  }
+
+  /**
+   * Transaksi findFirst
+   */
+  export type TransaksiFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaksi to fetch.
+     */
+    where?: TransaksiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transaksis to fetch.
+     */
+    orderBy?: TransaksiOrderByWithRelationInput | TransaksiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transaksis.
+     */
+    cursor?: TransaksiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transaksis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transaksis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transaksis.
+     */
+    distinct?: TransaksiScalarFieldEnum | TransaksiScalarFieldEnum[]
+  }
+
+  /**
+   * Transaksi findFirstOrThrow
+   */
+  export type TransaksiFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaksi to fetch.
+     */
+    where?: TransaksiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transaksis to fetch.
+     */
+    orderBy?: TransaksiOrderByWithRelationInput | TransaksiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Transaksis.
+     */
+    cursor?: TransaksiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transaksis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transaksis.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Transaksis.
+     */
+    distinct?: TransaksiScalarFieldEnum | TransaksiScalarFieldEnum[]
+  }
+
+  /**
+   * Transaksi findMany
+   */
+  export type TransaksiFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter, which Transaksis to fetch.
+     */
+    where?: TransaksiWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Transaksis to fetch.
+     */
+    orderBy?: TransaksiOrderByWithRelationInput | TransaksiOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Transaksis.
+     */
+    cursor?: TransaksiWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Transaksis from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Transaksis.
+     */
+    skip?: number
+    distinct?: TransaksiScalarFieldEnum | TransaksiScalarFieldEnum[]
+  }
+
+  /**
+   * Transaksi create
+   */
+  export type TransaksiCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Transaksi.
+     */
+    data: XOR<TransaksiCreateInput, TransaksiUncheckedCreateInput>
+  }
+
+  /**
+   * Transaksi createMany
+   */
+  export type TransaksiCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Transaksis.
+     */
+    data: TransaksiCreateManyInput | TransaksiCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Transaksi createManyAndReturn
+   */
+  export type TransaksiCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * The data used to create many Transaksis.
+     */
+    data: TransaksiCreateManyInput | TransaksiCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Transaksi update
+   */
+  export type TransaksiUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Transaksi.
+     */
+    data: XOR<TransaksiUpdateInput, TransaksiUncheckedUpdateInput>
+    /**
+     * Choose, which Transaksi to update.
+     */
+    where: TransaksiWhereUniqueInput
+  }
+
+  /**
+   * Transaksi updateMany
+   */
+  export type TransaksiUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Transaksis.
+     */
+    data: XOR<TransaksiUpdateManyMutationInput, TransaksiUncheckedUpdateManyInput>
+    /**
+     * Filter which Transaksis to update
+     */
+    where?: TransaksiWhereInput
+    /**
+     * Limit how many Transaksis to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Transaksi updateManyAndReturn
+   */
+  export type TransaksiUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * The data used to update Transaksis.
+     */
+    data: XOR<TransaksiUpdateManyMutationInput, TransaksiUncheckedUpdateManyInput>
+    /**
+     * Filter which Transaksis to update
+     */
+    where?: TransaksiWhereInput
+    /**
+     * Limit how many Transaksis to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Transaksi upsert
+   */
+  export type TransaksiUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Transaksi to update in case it exists.
+     */
+    where: TransaksiWhereUniqueInput
+    /**
+     * In case the Transaksi found by the `where` argument doesn't exist, create a new Transaksi with this data.
+     */
+    create: XOR<TransaksiCreateInput, TransaksiUncheckedCreateInput>
+    /**
+     * In case the Transaksi was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<TransaksiUpdateInput, TransaksiUncheckedUpdateInput>
+  }
+
+  /**
+   * Transaksi delete
+   */
+  export type TransaksiDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+    /**
+     * Filter which Transaksi to delete.
+     */
+    where: TransaksiWhereUniqueInput
+  }
+
+  /**
+   * Transaksi deleteMany
+   */
+  export type TransaksiDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Transaksis to delete
+     */
+    where?: TransaksiWhereInput
+    /**
+     * Limit how many Transaksis to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Transaksi without action
+   */
+  export type TransaksiDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Transaksi
+     */
+    select?: TransaksiSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Transaksi
+     */
+    omit?: TransaksiOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: TransaksiInclude<ExtArgs> | null
+  }
 
 
   /**
@@ -795,11 +3269,1044 @@ export namespace Prisma {
   export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+  export const ProdukScalarFieldEnum: {
+    id_produk: 'id_produk',
+    nama_produk: 'nama_produk',
+    harga: 'harga',
+    stok: 'stok',
+    foto: 'foto',
+    deskripsi: 'deskripsi',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ProdukScalarFieldEnum = (typeof ProdukScalarFieldEnum)[keyof typeof ProdukScalarFieldEnum]
+
+
+  export const TransaksiScalarFieldEnum: {
+    id_transaksi: 'id_transaksi',
+    id_produk: 'id_produk',
+    nama_pembeli: 'nama_pembeli',
+    tanggal: 'tanggal',
+    total_harga: 'total_harga',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type TransaksiScalarFieldEnum = (typeof TransaksiScalarFieldEnum)[keyof typeof TransaksiScalarFieldEnum]
+
+
+  export const SortOrder: {
+    asc: 'asc',
+    desc: 'desc'
+  };
+
+  export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const QueryMode: {
+    default: 'default',
+    insensitive: 'insensitive'
+  };
+
+  export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  /**
+   * Field references
+   */
+
+
+  /**
+   * Reference to a field of type 'String'
+   */
+  export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>
+    
+
+
+  /**
+   * Reference to a field of type 'String[]'
+   */
+  export type ListStringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int'
+   */
+  export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
+    
+
+
+  /**
+   * Reference to a field of type 'Int[]'
+   */
+  export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
+   * Reference to a field of type 'DateTime[]'
+   */
+  export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
   /**
    * Deep Input Types
    */
 
-  undefined
+
+  export type ProdukWhereInput = {
+    AND?: ProdukWhereInput | ProdukWhereInput[]
+    OR?: ProdukWhereInput[]
+    NOT?: ProdukWhereInput | ProdukWhereInput[]
+    id_produk?: StringFilter<"Produk"> | string
+    nama_produk?: StringFilter<"Produk"> | string
+    harga?: FloatFilter<"Produk"> | number
+    stok?: IntFilter<"Produk"> | number
+    foto?: StringNullableFilter<"Produk"> | string | null
+    deskripsi?: StringNullableFilter<"Produk"> | string | null
+    createdAt?: DateTimeFilter<"Produk"> | Date | string
+    updatedAt?: DateTimeFilter<"Produk"> | Date | string
+    transaksi?: TransaksiListRelationFilter
+  }
+
+  export type ProdukOrderByWithRelationInput = {
+    id_produk?: SortOrder
+    nama_produk?: SortOrder
+    harga?: SortOrder
+    stok?: SortOrder
+    foto?: SortOrderInput | SortOrder
+    deskripsi?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    transaksi?: TransaksiOrderByRelationAggregateInput
+  }
+
+  export type ProdukWhereUniqueInput = Prisma.AtLeast<{
+    id_produk?: string
+    AND?: ProdukWhereInput | ProdukWhereInput[]
+    OR?: ProdukWhereInput[]
+    NOT?: ProdukWhereInput | ProdukWhereInput[]
+    nama_produk?: StringFilter<"Produk"> | string
+    harga?: FloatFilter<"Produk"> | number
+    stok?: IntFilter<"Produk"> | number
+    foto?: StringNullableFilter<"Produk"> | string | null
+    deskripsi?: StringNullableFilter<"Produk"> | string | null
+    createdAt?: DateTimeFilter<"Produk"> | Date | string
+    updatedAt?: DateTimeFilter<"Produk"> | Date | string
+    transaksi?: TransaksiListRelationFilter
+  }, "id_produk">
+
+  export type ProdukOrderByWithAggregationInput = {
+    id_produk?: SortOrder
+    nama_produk?: SortOrder
+    harga?: SortOrder
+    stok?: SortOrder
+    foto?: SortOrderInput | SortOrder
+    deskripsi?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ProdukCountOrderByAggregateInput
+    _avg?: ProdukAvgOrderByAggregateInput
+    _max?: ProdukMaxOrderByAggregateInput
+    _min?: ProdukMinOrderByAggregateInput
+    _sum?: ProdukSumOrderByAggregateInput
+  }
+
+  export type ProdukScalarWhereWithAggregatesInput = {
+    AND?: ProdukScalarWhereWithAggregatesInput | ProdukScalarWhereWithAggregatesInput[]
+    OR?: ProdukScalarWhereWithAggregatesInput[]
+    NOT?: ProdukScalarWhereWithAggregatesInput | ProdukScalarWhereWithAggregatesInput[]
+    id_produk?: StringWithAggregatesFilter<"Produk"> | string
+    nama_produk?: StringWithAggregatesFilter<"Produk"> | string
+    harga?: FloatWithAggregatesFilter<"Produk"> | number
+    stok?: IntWithAggregatesFilter<"Produk"> | number
+    foto?: StringNullableWithAggregatesFilter<"Produk"> | string | null
+    deskripsi?: StringNullableWithAggregatesFilter<"Produk"> | string | null
+    createdAt?: DateTimeWithAggregatesFilter<"Produk"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Produk"> | Date | string
+  }
+
+  export type TransaksiWhereInput = {
+    AND?: TransaksiWhereInput | TransaksiWhereInput[]
+    OR?: TransaksiWhereInput[]
+    NOT?: TransaksiWhereInput | TransaksiWhereInput[]
+    id_transaksi?: StringFilter<"Transaksi"> | string
+    id_produk?: StringFilter<"Transaksi"> | string
+    nama_pembeli?: StringFilter<"Transaksi"> | string
+    tanggal?: DateTimeFilter<"Transaksi"> | Date | string
+    total_harga?: FloatFilter<"Transaksi"> | number
+    createdAt?: DateTimeFilter<"Transaksi"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaksi"> | Date | string
+    produk?: XOR<ProdukScalarRelationFilter, ProdukWhereInput>
+  }
+
+  export type TransaksiOrderByWithRelationInput = {
+    id_transaksi?: SortOrder
+    id_produk?: SortOrder
+    nama_pembeli?: SortOrder
+    tanggal?: SortOrder
+    total_harga?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    produk?: ProdukOrderByWithRelationInput
+  }
+
+  export type TransaksiWhereUniqueInput = Prisma.AtLeast<{
+    id_transaksi?: string
+    AND?: TransaksiWhereInput | TransaksiWhereInput[]
+    OR?: TransaksiWhereInput[]
+    NOT?: TransaksiWhereInput | TransaksiWhereInput[]
+    id_produk?: StringFilter<"Transaksi"> | string
+    nama_pembeli?: StringFilter<"Transaksi"> | string
+    tanggal?: DateTimeFilter<"Transaksi"> | Date | string
+    total_harga?: FloatFilter<"Transaksi"> | number
+    createdAt?: DateTimeFilter<"Transaksi"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaksi"> | Date | string
+    produk?: XOR<ProdukScalarRelationFilter, ProdukWhereInput>
+  }, "id_transaksi">
+
+  export type TransaksiOrderByWithAggregationInput = {
+    id_transaksi?: SortOrder
+    id_produk?: SortOrder
+    nama_pembeli?: SortOrder
+    tanggal?: SortOrder
+    total_harga?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: TransaksiCountOrderByAggregateInput
+    _avg?: TransaksiAvgOrderByAggregateInput
+    _max?: TransaksiMaxOrderByAggregateInput
+    _min?: TransaksiMinOrderByAggregateInput
+    _sum?: TransaksiSumOrderByAggregateInput
+  }
+
+  export type TransaksiScalarWhereWithAggregatesInput = {
+    AND?: TransaksiScalarWhereWithAggregatesInput | TransaksiScalarWhereWithAggregatesInput[]
+    OR?: TransaksiScalarWhereWithAggregatesInput[]
+    NOT?: TransaksiScalarWhereWithAggregatesInput | TransaksiScalarWhereWithAggregatesInput[]
+    id_transaksi?: StringWithAggregatesFilter<"Transaksi"> | string
+    id_produk?: StringWithAggregatesFilter<"Transaksi"> | string
+    nama_pembeli?: StringWithAggregatesFilter<"Transaksi"> | string
+    tanggal?: DateTimeWithAggregatesFilter<"Transaksi"> | Date | string
+    total_harga?: FloatWithAggregatesFilter<"Transaksi"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Transaksi"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Transaksi"> | Date | string
+  }
+
+  export type ProdukCreateInput = {
+    id_produk?: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto?: string | null
+    deskripsi?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transaksi?: TransaksiCreateNestedManyWithoutProdukInput
+  }
+
+  export type ProdukUncheckedCreateInput = {
+    id_produk?: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto?: string | null
+    deskripsi?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    transaksi?: TransaksiUncheckedCreateNestedManyWithoutProdukInput
+  }
+
+  export type ProdukUpdateInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaksi?: TransaksiUpdateManyWithoutProdukNestedInput
+  }
+
+  export type ProdukUncheckedUpdateInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    transaksi?: TransaksiUncheckedUpdateManyWithoutProdukNestedInput
+  }
+
+  export type ProdukCreateManyInput = {
+    id_produk?: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto?: string | null
+    deskripsi?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProdukUpdateManyMutationInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProdukUncheckedUpdateManyInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiCreateInput = {
+    id_transaksi?: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    produk: ProdukCreateNestedOneWithoutTransaksiInput
+  }
+
+  export type TransaksiUncheckedCreateInput = {
+    id_transaksi?: string
+    id_produk: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransaksiUpdateInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    produk?: ProdukUpdateOneRequiredWithoutTransaksiNestedInput
+  }
+
+  export type TransaksiUncheckedUpdateInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiCreateManyInput = {
+    id_transaksi?: string
+    id_produk: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransaksiUpdateManyMutationInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiUncheckedUpdateManyInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type StringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type TransaksiListRelationFilter = {
+    every?: TransaksiWhereInput
+    some?: TransaksiWhereInput
+    none?: TransaksiWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
+  }
+
+  export type TransaksiOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type ProdukCountOrderByAggregateInput = {
+    id_produk?: SortOrder
+    nama_produk?: SortOrder
+    harga?: SortOrder
+    stok?: SortOrder
+    foto?: SortOrder
+    deskripsi?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProdukAvgOrderByAggregateInput = {
+    harga?: SortOrder
+    stok?: SortOrder
+  }
+
+  export type ProdukMaxOrderByAggregateInput = {
+    id_produk?: SortOrder
+    nama_produk?: SortOrder
+    harga?: SortOrder
+    stok?: SortOrder
+    foto?: SortOrder
+    deskripsi?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProdukMinOrderByAggregateInput = {
+    id_produk?: SortOrder
+    nama_produk?: SortOrder
+    harga?: SortOrder
+    stok?: SortOrder
+    foto?: SortOrder
+    deskripsi?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ProdukSumOrderByAggregateInput = {
+    harga?: SortOrder
+    stok?: SortOrder
+  }
+
+  export type StringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type ProdukScalarRelationFilter = {
+    is?: ProdukWhereInput
+    isNot?: ProdukWhereInput
+  }
+
+  export type TransaksiCountOrderByAggregateInput = {
+    id_transaksi?: SortOrder
+    id_produk?: SortOrder
+    nama_pembeli?: SortOrder
+    tanggal?: SortOrder
+    total_harga?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransaksiAvgOrderByAggregateInput = {
+    total_harga?: SortOrder
+  }
+
+  export type TransaksiMaxOrderByAggregateInput = {
+    id_transaksi?: SortOrder
+    id_produk?: SortOrder
+    nama_pembeli?: SortOrder
+    tanggal?: SortOrder
+    total_harga?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransaksiMinOrderByAggregateInput = {
+    id_transaksi?: SortOrder
+    id_produk?: SortOrder
+    nama_pembeli?: SortOrder
+    tanggal?: SortOrder
+    total_harga?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type TransaksiSumOrderByAggregateInput = {
+    total_harga?: SortOrder
+  }
+
+  export type TransaksiCreateNestedManyWithoutProdukInput = {
+    create?: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput> | TransaksiCreateWithoutProdukInput[] | TransaksiUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: TransaksiCreateOrConnectWithoutProdukInput | TransaksiCreateOrConnectWithoutProdukInput[]
+    createMany?: TransaksiCreateManyProdukInputEnvelope
+    connect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+  }
+
+  export type TransaksiUncheckedCreateNestedManyWithoutProdukInput = {
+    create?: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput> | TransaksiCreateWithoutProdukInput[] | TransaksiUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: TransaksiCreateOrConnectWithoutProdukInput | TransaksiCreateOrConnectWithoutProdukInput[]
+    createMany?: TransaksiCreateManyProdukInputEnvelope
+    connect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+  }
+
+  export type StringFieldUpdateOperationsInput = {
+    set?: string
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
+  }
+
+  export type TransaksiUpdateManyWithoutProdukNestedInput = {
+    create?: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput> | TransaksiCreateWithoutProdukInput[] | TransaksiUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: TransaksiCreateOrConnectWithoutProdukInput | TransaksiCreateOrConnectWithoutProdukInput[]
+    upsert?: TransaksiUpsertWithWhereUniqueWithoutProdukInput | TransaksiUpsertWithWhereUniqueWithoutProdukInput[]
+    createMany?: TransaksiCreateManyProdukInputEnvelope
+    set?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    disconnect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    delete?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    connect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    update?: TransaksiUpdateWithWhereUniqueWithoutProdukInput | TransaksiUpdateWithWhereUniqueWithoutProdukInput[]
+    updateMany?: TransaksiUpdateManyWithWhereWithoutProdukInput | TransaksiUpdateManyWithWhereWithoutProdukInput[]
+    deleteMany?: TransaksiScalarWhereInput | TransaksiScalarWhereInput[]
+  }
+
+  export type TransaksiUncheckedUpdateManyWithoutProdukNestedInput = {
+    create?: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput> | TransaksiCreateWithoutProdukInput[] | TransaksiUncheckedCreateWithoutProdukInput[]
+    connectOrCreate?: TransaksiCreateOrConnectWithoutProdukInput | TransaksiCreateOrConnectWithoutProdukInput[]
+    upsert?: TransaksiUpsertWithWhereUniqueWithoutProdukInput | TransaksiUpsertWithWhereUniqueWithoutProdukInput[]
+    createMany?: TransaksiCreateManyProdukInputEnvelope
+    set?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    disconnect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    delete?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    connect?: TransaksiWhereUniqueInput | TransaksiWhereUniqueInput[]
+    update?: TransaksiUpdateWithWhereUniqueWithoutProdukInput | TransaksiUpdateWithWhereUniqueWithoutProdukInput[]
+    updateMany?: TransaksiUpdateManyWithWhereWithoutProdukInput | TransaksiUpdateManyWithWhereWithoutProdukInput[]
+    deleteMany?: TransaksiScalarWhereInput | TransaksiScalarWhereInput[]
+  }
+
+  export type ProdukCreateNestedOneWithoutTransaksiInput = {
+    create?: XOR<ProdukCreateWithoutTransaksiInput, ProdukUncheckedCreateWithoutTransaksiInput>
+    connectOrCreate?: ProdukCreateOrConnectWithoutTransaksiInput
+    connect?: ProdukWhereUniqueInput
+  }
+
+  export type ProdukUpdateOneRequiredWithoutTransaksiNestedInput = {
+    create?: XOR<ProdukCreateWithoutTransaksiInput, ProdukUncheckedCreateWithoutTransaksiInput>
+    connectOrCreate?: ProdukCreateOrConnectWithoutTransaksiInput
+    upsert?: ProdukUpsertWithoutTransaksiInput
+    connect?: ProdukWhereUniqueInput
+    update?: XOR<XOR<ProdukUpdateToOneWithWhereWithoutTransaksiInput, ProdukUpdateWithoutTransaksiInput>, ProdukUncheckedUpdateWithoutTransaksiInput>
+  }
+
+  export type NestedStringFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringFilter<$PrismaModel> | string
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedIntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel>
+    in?: string[] | ListStringFieldRefInput<$PrismaModel>
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel>
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringWithAggregatesFilter<$PrismaModel> | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedStringFilter<$PrismaModel>
+    _max?: NestedStringFilter<$PrismaModel>
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type TransaksiCreateWithoutProdukInput = {
+    id_transaksi?: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransaksiUncheckedCreateWithoutProdukInput = {
+    id_transaksi?: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransaksiCreateOrConnectWithoutProdukInput = {
+    where: TransaksiWhereUniqueInput
+    create: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput>
+  }
+
+  export type TransaksiCreateManyProdukInputEnvelope = {
+    data: TransaksiCreateManyProdukInput | TransaksiCreateManyProdukInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type TransaksiUpsertWithWhereUniqueWithoutProdukInput = {
+    where: TransaksiWhereUniqueInput
+    update: XOR<TransaksiUpdateWithoutProdukInput, TransaksiUncheckedUpdateWithoutProdukInput>
+    create: XOR<TransaksiCreateWithoutProdukInput, TransaksiUncheckedCreateWithoutProdukInput>
+  }
+
+  export type TransaksiUpdateWithWhereUniqueWithoutProdukInput = {
+    where: TransaksiWhereUniqueInput
+    data: XOR<TransaksiUpdateWithoutProdukInput, TransaksiUncheckedUpdateWithoutProdukInput>
+  }
+
+  export type TransaksiUpdateManyWithWhereWithoutProdukInput = {
+    where: TransaksiScalarWhereInput
+    data: XOR<TransaksiUpdateManyMutationInput, TransaksiUncheckedUpdateManyWithoutProdukInput>
+  }
+
+  export type TransaksiScalarWhereInput = {
+    AND?: TransaksiScalarWhereInput | TransaksiScalarWhereInput[]
+    OR?: TransaksiScalarWhereInput[]
+    NOT?: TransaksiScalarWhereInput | TransaksiScalarWhereInput[]
+    id_transaksi?: StringFilter<"Transaksi"> | string
+    id_produk?: StringFilter<"Transaksi"> | string
+    nama_pembeli?: StringFilter<"Transaksi"> | string
+    tanggal?: DateTimeFilter<"Transaksi"> | Date | string
+    total_harga?: FloatFilter<"Transaksi"> | number
+    createdAt?: DateTimeFilter<"Transaksi"> | Date | string
+    updatedAt?: DateTimeFilter<"Transaksi"> | Date | string
+  }
+
+  export type ProdukCreateWithoutTransaksiInput = {
+    id_produk?: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto?: string | null
+    deskripsi?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProdukUncheckedCreateWithoutTransaksiInput = {
+    id_produk?: string
+    nama_produk: string
+    harga: number
+    stok: number
+    foto?: string | null
+    deskripsi?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ProdukCreateOrConnectWithoutTransaksiInput = {
+    where: ProdukWhereUniqueInput
+    create: XOR<ProdukCreateWithoutTransaksiInput, ProdukUncheckedCreateWithoutTransaksiInput>
+  }
+
+  export type ProdukUpsertWithoutTransaksiInput = {
+    update: XOR<ProdukUpdateWithoutTransaksiInput, ProdukUncheckedUpdateWithoutTransaksiInput>
+    create: XOR<ProdukCreateWithoutTransaksiInput, ProdukUncheckedCreateWithoutTransaksiInput>
+    where?: ProdukWhereInput
+  }
+
+  export type ProdukUpdateToOneWithWhereWithoutTransaksiInput = {
+    where?: ProdukWhereInput
+    data: XOR<ProdukUpdateWithoutTransaksiInput, ProdukUncheckedUpdateWithoutTransaksiInput>
+  }
+
+  export type ProdukUpdateWithoutTransaksiInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ProdukUncheckedUpdateWithoutTransaksiInput = {
+    id_produk?: StringFieldUpdateOperationsInput | string
+    nama_produk?: StringFieldUpdateOperationsInput | string
+    harga?: FloatFieldUpdateOperationsInput | number
+    stok?: IntFieldUpdateOperationsInput | number
+    foto?: NullableStringFieldUpdateOperationsInput | string | null
+    deskripsi?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiCreateManyProdukInput = {
+    id_transaksi?: string
+    nama_pembeli: string
+    tanggal?: Date | string
+    total_harga: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type TransaksiUpdateWithoutProdukInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiUncheckedUpdateWithoutProdukInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type TransaksiUncheckedUpdateManyWithoutProdukInput = {
+    id_transaksi?: StringFieldUpdateOperationsInput | string
+    nama_pembeli?: StringFieldUpdateOperationsInput | string
+    tanggal?: DateTimeFieldUpdateOperationsInput | Date | string
+    total_harga?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
 
 
 

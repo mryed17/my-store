@@ -1,12 +1,12 @@
-// app/admin/layout.tsx
-import { ReactNode } from "react";
-import Navbar from "./components/navbar";
-
-export default function AdminLayout({ children }: { children: ReactNode }) {
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Navbar />
-      <main className="container mx-auto px-4 py-8">{children}</main>
+    <div>
+      <h1 className="text-3xl font-bold p-4 bg-gray-800 text-white">Admin Panel</h1>
+      <div className="p-4">{children}</div>
     </div>
-  );
+  )
 }
